@@ -246,6 +246,53 @@
   .nav-3d.is-open .nav-3d-list li:nth-child(2) .nav-3d-link { animation-delay: 0.38s; }
   .nav-3d.is-open .nav-3d-list li:nth-child(3) .nav-3d-link { animation-delay: 0.71s; }
 
+  .playbook {
+    perspective: 900px;
+  }
+
+  .playbook-item {
+    transform-origin: center top;
+  }
+
+  .playbook.is-live .playbook-item.is-open {
+    animation: playbook-pop 0.72s cubic-bezier(0.16, 0.84, 0.22, 1.28);
+  }
+
+  .playbook-copy {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s ease;
+  }
+
+  .playbook-item.is-open .playbook-copy {
+    grid-template-rows: 1fr;
+  }
+
+  .playbook-copy-inner {
+    overflow: hidden;
+  }
+
+  .playbook.is-live .playbook-item.is-open .playbook-icon {
+    animation: playbook-icon-pop 0.55s 0.08s cubic-bezier(0.16, 0.84, 0.22, 1.4) both;
+  }
+}
+
+@keyframes playbook-pop {
+  0% {
+    transform: perspective(800px) rotateX(-36deg) translateY(14px) scale(0.94);
+  }
+  58% {
+    transform: perspective(800px) rotateX(10deg) translateY(-4px) scale(1.035);
+  }
+  100% {
+    transform: perspective(800px) rotateX(0deg) translateY(0) scale(1);
+  }
+}
+
+@keyframes playbook-icon-pop {
+  0% { transform: rotate(-18deg) scale(0.4); }
+  70% { transform: rotate(8deg) scale(1.25); }
+  100% { transform: rotate(0deg) scale(1); }
 }
 
 @keyframes nav-fold-in {
@@ -269,6 +316,8 @@
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .nav-3d-link { animation: none; opacity: 1; transform: none; }
+  .playbook-item.is-open,
+  .playbook-item.is-open .playbook-icon { animation: none; }
 }
 
 @layer base {
