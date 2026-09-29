@@ -195,7 +195,8 @@
   .rank.plain { @apply bg-white/10 text-white/60; }
 
   .nav-3d {
-    height: 58px;
+    display: flex;
+    align-items: center;
     perspective: 520px;
   }
 
@@ -209,9 +210,10 @@
 
   .nav-3d-list {
     display: flex;
+    align-items: center;
     gap: 1.75rem;
     margin: 0;
-    padding: 0 0 16px;
+    padding: 0;
     list-style: none;
   }
 
