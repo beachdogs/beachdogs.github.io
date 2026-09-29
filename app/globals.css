@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
@@ -156,7 +157,7 @@
 @theme inline {
   --font-sans: var(--font-mulish), sans-serif;
   --font-display: var(--font-mulish), sans-serif;
-  --font-serif: var(--font-mulish), sans-serif;
+  --font-serif: 'Playfair Display', serif;
   --font-mono: var(--font-mulish), sans-serif;
 }
 
@@ -180,8 +181,16 @@
   .section-title {
     @apply font-display text-5xl font-semibold leading-[0.94] tracking-[-0.055em] sm:text-6xl;
   }
+  .section-title em,
+  em.font-serif {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-optical-sizing: auto;
+  }
+
   .section-title em {
-    @apply font-serif font-normal text-[#f76f5f];
+    @apply font-normal text-[#f76f5f];
   }
   .avatar {
     @apply flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#f8f6f0] font-mono text-[9px] font-bold text-[#102832];

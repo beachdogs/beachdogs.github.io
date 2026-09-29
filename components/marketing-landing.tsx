@@ -69,7 +69,7 @@ export function MarketingLanding() {
       <div className="absolute inset-x-0 top-0 -z-0 h-[720px] bg-[radial-gradient(circle_at_75%_10%,rgba(118,225,211,0.2),transparent_24%),radial-gradient(circle_at_15%_0%,rgba(255,196,93,0.22),transparent_22%)]" />
       <nav className="relative z-10 mx-auto flex max-w-[1240px] items-center justify-between px-6 py-6 lg:px-10">
         <a href="#top" className="flex items-center gap-3" aria-label="Beach Dog Marketing home">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#102832] text-[#f8f6f0]"><span className="text-lg">✦</span></span>
+          <img src="/wave_logo.jpg" alt="" className="h-12 w-12 shrink-0 rounded-full object-cover" />
           <span className="font-mono text-[13px] font-bold uppercase tracking-[0.12em]">Beach Dog<br /><span className="text-[#f76f5f]">Marketing</span></span>
         </a>
         <div className={`nav-3d hidden md:block ${navOpen ? 'is-open' : ''}`}>
