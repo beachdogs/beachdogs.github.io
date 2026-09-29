@@ -1,5 +1,13 @@
+import { Mulish } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+
+const mulish = Mulish({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-mulish',
+})
 
 export const metadata: Metadata = {
   title: 'Beach Dog Marketing — Make your customers the campaign',
@@ -38,8 +46,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="en" className={mulish.variable}>
+      <body className={`${mulish.className} antialiased`}>
         {children}
       </body>
     </html>
