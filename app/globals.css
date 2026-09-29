@@ -193,6 +193,63 @@
   .rank.silver { @apply bg-[#d4e1df] text-[#102832]; }
   .rank.bronze { @apply bg-[#d99878] text-white; }
   .rank.plain { @apply bg-white/10 text-white/60; }
+
+  .nav-3d {
+    height: 58px;
+    perspective: 520px;
+  }
+
+  .nav-3d-stage {
+    position: relative;
+  }
+
+  .nav-3d-list li {
+    perspective: 520px;
+  }
+
+  .nav-3d-list {
+    display: flex;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0 0 16px;
+    list-style: none;
+  }
+
+  .nav-3d-link {
+    display: inline-block;
+    transform-origin: center top;
+    transform: rotateX(-88deg);
+    opacity: 0;
+    font-size: 1.125rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #102832;
+    transition: color 0.25s ease;
+  }
+
+  .nav-3d.is-open .nav-3d-link {
+    animation: nav-fold-in 1.45s cubic-bezier(0.16, 0.84, 0.24, 1.2) forwards;
+  }
+
+  .nav-3d.is-open .nav-3d-list li:nth-child(1) .nav-3d-link { animation-delay: 0.05s; }
+  .nav-3d.is-open .nav-3d-list li:nth-child(2) .nav-3d-link { animation-delay: 0.38s; }
+  .nav-3d.is-open .nav-3d-list li:nth-child(3) .nav-3d-link { animation-delay: 0.71s; }
+
+}
+
+@keyframes nav-fold-in {
+  0% {
+    opacity: 0;
+    transform: rotateX(-88deg) translateY(-18px) scale(0.82);
+  }
+  58% {
+    opacity: 1;
+    transform: rotateX(22deg) translateY(8px) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0) scale(1);
+  }
 }
 
 ::selection { background: #f76f5f; color: white; }
@@ -200,6 +257,7 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .nav-3d-link { animation: none; opacity: 1; transform: none; }
 }
 
 @layer base {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowUpRight, BarChart3, ChevronDown, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Zap } from 'lucide-react'
 
 const mechanics = [
@@ -38,6 +38,12 @@ const mechanics = [
   },
 ]
 
+const navItems = [
+  { href: '#solutions', label: 'Solutions', color: '#f76f5f' },
+  { href: '#how-it-works', label: 'How it works', color: '#1aa89a' },
+  { href: '#results', label: 'Results', color: '#d89a12' },
+]
+
 const initialPlayers = [
   ['01', 'Maya R.', '12,480 pts', 'gold'],
   ['02', 'The Coffee Club', '11,920 pts', 'silver'],
@@ -50,6 +56,13 @@ export function MarketingLanding() {
   const [played, setPlayed] = useState(false)
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
+  const [activeNav, setActiveNav] = useState(0)
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setNavOpen(true), 350)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f8f6f0] text-[#102832] selection:bg-[#f76f5f] selection:text-white">
@@ -59,10 +72,24 @@ export function MarketingLanding() {
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#102832] text-[#f8f6f0]"><span className="text-lg">✦</span></span>
           <span className="font-mono text-[13px] font-bold uppercase tracking-[0.12em]">Beach Dog<br /><span className="text-[#f76f5f]">Marketing</span></span>
         </a>
-        <div className="hidden items-center gap-8 text-sm font-medium md:flex">
-          <a className="transition-colors hover:text-[#f76f5f]" href="#solutions">Solutions</a>
-          <a className="transition-colors hover:text-[#f76f5f]" href="#how-it-works">How it works</a>
-          <a className="transition-colors hover:text-[#f76f5f]" href="#results">Results</a>
+        <div className={`nav-3d hidden md:block ${navOpen ? 'is-open' : ''}`}>
+          <div className="nav-3d-stage">
+            <ul className="nav-3d-list">
+              {navItems.map((item, index) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className="nav-3d-link"
+                    style={activeNav === index ? { color: item.color } : undefined}
+                    onMouseEnter={() => setActiveNav(index)}
+                    onFocus={() => setActiveNav(index)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <a href="#contact" className="rounded-full border border-[#102832]/20 bg-white/50 px-5 py-2.5 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:bg-[#102832] hover:text-white">Book a demo <ArrowUpRight className="ml-1 inline h-4 w-4" /></a>
       </nav>
