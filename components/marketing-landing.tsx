@@ -139,7 +139,7 @@ export function MarketingLanding() {
         </div>
       </section>
 
-      <section id="results" className="border-y border-[#102832]/10 bg-[#102832] text-white"><div className="mx-auto grid max-w-[1240px] gap-8 px-6 py-9 sm:grid-cols-3 lg:px-10"><Metric value="+300%" label="engagement rate" delay={0} /><Metric value="−40%" label="customer acquisition cost" delay={1100} /><Metric value="4.2×" label="more social shares" delay={2200} /></div></section>
+      <Results />
 
       <section id="solutions" className="relative mx-auto max-w-[1240px] px-6 py-24 lg:px-10 lg:py-32"><div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="eyebrow">The playbook</p><h2 className="section-title mt-5">Your best<br /><em>marketing</em><br />should feel<br />like a game.</h2><p className="mt-7 max-w-sm leading-7 text-[#102832]/65">Static promotions get ignored. We build interactive campaigns that give people a reason to come back, bring friends, and buy now.</p><a href="#contact" className="mt-8 inline-block text-sm font-bold underline decoration-[#f76f5f] decoration-2 underline-offset-4">Find your growth engine <ArrowUpRight className="ml-1 inline h-4 w-4" /></a></div><div ref={playbookRef} className={`playbook grid gap-3 ${playbookInView ? 'is-live' : ''}`}>{mechanics.map((item, index) => { const Icon = item.icon; const open = activeMechanic === index; return <button key={item.number} onClick={() => setActiveMechanic(index)} aria-expanded={open} className={`playbook-item group text-left ${open ? 'is-open rounded-3xl bg-[#eaf3ee] p-5 sm:p-6' : 'border-b border-[#102832]/10 px-1 py-5'}`}><div className="flex items-start gap-4"><span className="pt-1 font-mono text-xs text-[#102832]/40">{item.number}</span><div className="flex-1"><div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-bold">{item.title}</h3><span className={`rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${open ? 'bg-[#f76f5f] text-white' : 'bg-[#102832]/[0.06] text-[#102832]/55'}`}>{item.tag}</span></div><div className="playbook-copy"><div className="playbook-copy-inner"><p className="mt-3 max-w-lg leading-7 text-[#102832]/65">{item.description}</p></div></div></div><Icon className={`playbook-icon mt-1 h-5 w-5 shrink-0 ${open ? 'text-[#f76f5f]' : 'text-[#102832]/25 group-hover:text-[#f76f5f]'}`} /></div></button> })}</div></div></section>
 
@@ -169,45 +169,66 @@ function formatMetric(value: string, progress: number) {
   return `${metric.prefix}${shown}${metric.suffix}`
 }
 
-function Metric({ value, label, delay }: { value: string; label: string; delay: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [text, setText] = useState(() => formatMetric(value, 0))
+function Results() {
+  const ref = useRef<HTMLElement>(null)
+  const [active, setActive] = useState(false)
 
   useEffect(() => {
     const node = ref.current
     if (!node) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setActive(true)
+        observer.disconnect()
+      },
+      { threshold: 0.45 },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <section id="results" ref={ref} className="border-y border-[#102832]/10 bg-[#102832] text-white">
+      <div className="mx-auto grid max-w-[1240px] gap-8 px-6 py-9 sm:grid-cols-3 lg:px-10">
+        <Metric value="+300%" label="engagement rate" delay={0} active={active} />
+        <Metric value="−40%" label="customer acquisition cost" delay={1100} active={active} />
+        <Metric value="4.2×" label="more social shares" delay={2200} active={active} />
+      </div>
+    </section>
+  )
+}
+
+function Metric({ value, label, delay, active }: { value: string; label: string; delay: number; active: boolean }) {
+  const [text, setText] = useState(() => formatMetric(value, 0))
+
+  useEffect(() => {
+    if (!active) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setText(value)
       return
     }
 
     let frame = 0
-    let started = false
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || started) return
-        started = true
-        const duration = 980
-        const begin = performance.now() + delay
-        const tick = (now: number) => {
-          const progress = Math.min(1, Math.max(0, (now - begin) / duration))
-          const eased = 1 - (1 - progress) ** 3
-          setText(formatMetric(value, eased))
-          if (progress < 1) frame = window.requestAnimationFrame(tick)
-        }
-        frame = window.requestAnimationFrame(tick)
-      },
-      { threshold: 0.6 },
-    )
-    observer.observe(node)
+    const timeout = window.setTimeout(() => {
+      const begin = performance.now()
+      const duration = 980
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - begin) / duration)
+        setText(progress === 1 ? value : formatMetric(value, 1 - (1 - progress) ** 3))
+        if (progress < 1) frame = window.requestAnimationFrame(tick)
+      }
+      frame = window.requestAnimationFrame(tick)
+    }, delay)
+
     return () => {
-      observer.disconnect()
+      window.clearTimeout(timeout)
       window.cancelAnimationFrame(frame)
     }
-  }, [delay, value])
+  }, [active, delay, value])
 
   return (
-    <div ref={ref} className="text-center">
+    <div className="text-center">
       <p aria-label={value} className="font-display text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">{text}</p>
       <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/50">{label}</p>
     </div>
