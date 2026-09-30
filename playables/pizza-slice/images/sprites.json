@@ -1,0 +1,313 @@
+{
+	"textures": [
+		{
+			"image": "sprites.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1024,
+				"h": 1024
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "mozzarella",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 287,
+						"h": 195
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 287,
+						"h": 195
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 287,
+						"h": 195
+					}
+				},
+				{
+					"filename": "pepperoni",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 262,
+						"h": 236
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 262,
+						"h": 236
+					},
+					"frame": {
+						"x": 2,
+						"y": 201,
+						"w": 262,
+						"h": 236
+					}
+				},
+				{
+					"filename": "garlic",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 226,
+						"h": 245
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 226,
+						"h": 245
+					},
+					"frame": {
+						"x": 293,
+						"y": 2,
+						"w": 226,
+						"h": 245
+					}
+				},
+				{
+					"filename": "onion",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 226,
+						"h": 245
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 226,
+						"h": 245
+					},
+					"frame": {
+						"x": 2,
+						"y": 441,
+						"w": 226,
+						"h": 245
+					}
+				},
+				{
+					"filename": "pepper",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 206,
+						"h": 244
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 206,
+						"h": 244
+					},
+					"frame": {
+						"x": 232,
+						"y": 441,
+						"w": 206,
+						"h": 244
+					}
+				},
+				{
+					"filename": "pizza-burnt",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 242,
+						"h": 166
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 242,
+						"h": 166
+					},
+					"frame": {
+						"x": 268,
+						"y": 251,
+						"w": 242,
+						"h": 166
+					}
+				},
+				{
+					"filename": "pizza-golden",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 242,
+						"h": 166
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 242,
+						"h": 166
+					},
+					"frame": {
+						"x": 523,
+						"y": 2,
+						"w": 242,
+						"h": 166
+					}
+				},
+				{
+					"filename": "pizza",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 242,
+						"h": 166
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 242,
+						"h": 166
+					},
+					"frame": {
+						"x": 523,
+						"y": 172,
+						"w": 242,
+						"h": 166
+					}
+				},
+				{
+					"filename": "tomato",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 240,
+						"h": 236
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 240,
+						"h": 236
+					},
+					"frame": {
+						"x": 514,
+						"y": 342,
+						"w": 240,
+						"h": 236
+					}
+				},
+				{
+					"filename": "pineapple",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 104,
+						"h": 234
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 104,
+						"h": 234
+					},
+					"frame": {
+						"x": 2,
+						"y": 690,
+						"w": 104,
+						"h": 234
+					}
+				},
+				{
+					"filename": "chicken",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 225,
+						"h": 152
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 225,
+						"h": 152
+					},
+					"frame": {
+						"x": 110,
+						"y": 690,
+						"w": 225,
+						"h": 152
+					}
+				},
+				{
+					"filename": "basil",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 75,
+						"h": 211
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 75,
+						"h": 211
+					},
+					"frame": {
+						"x": 339,
+						"y": 689,
+						"w": 75,
+						"h": 211
+					}
+				},
+				{
+					"filename": "mushroom",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 183,
+						"h": 165
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 183,
+						"h": 165
+					},
+					"frame": {
+						"x": 418,
+						"y": 689,
+						"w": 183,
+						"h": 165
+					}
+				},
+				{
+					"filename": "italian-sausage",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 180,
+						"h": 163
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 180,
+						"h": 163
+					},
+					"frame": {
+						"x": 769,
+						"y": 2,
+						"w": 180,
+						"h": 163
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://github.com/odrick/free-tex-packer-core",
+		"version": "0.3.9"
+	}
+}
