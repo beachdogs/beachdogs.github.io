@@ -308,12 +308,12 @@
     -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 50px), #000 calc(100% - 48px));
     mask: radial-gradient(farthest-side, transparent calc(100% - 50px), #000 calc(100% - 48px));
     animation-name: contact-ring-tilt-alt;
-    animation-duration: 9s;
+    animation-duration: 18s;
     animation-delay: -2s;
   }
 
   .contact-ring-front::before {
-    animation-duration: 12s;
+    animation-duration: 24s;
     animation-direction: reverse;
   }
 }
