@@ -145,6 +145,8 @@ export function MarketingLanding() {
 
       <section id="how-it-works" className="bg-[#dff2eb] px-6 py-24 lg:px-10"><div className="mx-auto max-w-[1240px]"><div className="flex flex-col justify-between gap-7 sm:flex-row sm:items-end"><div><p className="eyebrow">The ripple effect</p><h2 className="section-title mt-5 max-w-xl">Small plays.<br /><em>Big waves.</em></h2></div><p className="max-w-sm leading-7 text-[#102832]/65">A 30-second daily challenge can create a week of social momentum for your business.</p></div><div className="mt-16 grid gap-5 md:grid-cols-3"><Step num="01" title="Capture attention" text="Give people something fun to do, not another discount to ignore." /><Step num="02" title="Reward the return" text="Turn every visit into progress, status, and a reason to come back tomorrow." /><Step num="03" title="Let it travel" text="Players share their score. Their friends join. Your reach compounds." /></div></div></section>
 
+      <PizzaSlice />
+
       <section id="contact" className="contact-stage relative overflow-hidden bg-[#f76f5f] px-6 py-24 text-white lg:px-10 lg:py-28"><div aria-hidden="true" className="contact-ring contact-ring-back absolute -right-12 -top-24 h-80 w-80" /><div aria-hidden="true" className="contact-ring contact-ring-front absolute -bottom-36 left-1/3 h-72 w-72" /><div className="relative mx-auto flex max-w-[1240px] flex-col justify-between gap-12 lg:flex-row lg:items-end"><div><p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/70">Ready when you are</p><h2 className="mt-5 max-w-2xl font-display text-5xl font-semibold leading-[0.95] tracking-[-0.05em] sm:text-7xl">Let’s make<br /><em className="font-serif font-normal">some waves.</em></h2></div><div className="w-full max-w-md"><p className="mb-5 text-white/80">Tell us where you want to grow and we’ll send over a few campaign ideas made for your business.</p>{submitted ? <div className="rounded-2xl bg-white px-5 py-4 font-semibold text-[#102832]">You’re on the list. We’ll be in touch soon.</div> : <form onSubmit={(event) => { event.preventDefault(); if (email.trim()) setSubmitted(true) }} className="flex gap-2 rounded-full bg-white p-2"><label className="sr-only" htmlFor="email">Your email address</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email address" className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#102832] outline-none placeholder:text-[#102832]/45" /><button className="shrink-0 rounded-full bg-[#102832] px-5 py-3 text-sm font-bold text-white transition-transform hover:scale-105" type="submit">Get ideas <ArrowUpRight className="ml-1 inline h-4 w-4" /></button></form>}</div></div></section>
       <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10"><span>© 2026 Beach Dog Marketing</span><span>Made for local businesses with big energy.</span></footer>
     </main>
@@ -235,4 +237,67 @@ function Metric({ value, label, delay, active }: { value: string; label: string;
   )
 }
 function Step({ num, title, text }: { num: string; title: string; text: string }) { return <div className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7"><span className="font-mono text-xs font-bold text-[#f76f5f]">{num}</span><h3 className="mt-12 text-xl font-bold">{title}</h3><p className="mt-3 leading-7 text-[#102832]/65">{text}</p></div> }
+
+const pizzaPlayUrl = 'https://beachdogs.github.io/playables/pizza-slice/'
+
+const pizzaLevels = [
+  { number: '01', name: 'Prep the toppings', text: 'Slice flying ingredients. No whole pies yet.' },
+  { number: '02', name: 'Slice the pies', text: 'Cheese, pepperoni, Hawaiian, and a rare golden pie.' },
+  { number: '03', name: 'Ticket time', text: 'Only the order on the ticket scores.' },
+  { number: '04', name: 'Multi-slice', text: 'Three swipes break a pie into six pieces.' },
+  { number: '05', name: 'Oven’s hot', text: 'Dodge the burnt pies. Then the dinner rush crowns the score.' },
+]
+
+const pizzaBoard = [
+  ['01', 'Maya R.', '18,420', 'gold'],
+  ['02', 'You', '12,480', 'silver'],
+  ['03', 'Jake’s Bikes', '9,110', 'bronze'],
+]
+
+function PizzaSlice() {
+  return (
+    <section id="pizza-slice" className="px-6 py-24 lg:px-10">
+      <div className="mx-auto max-w-[1240px]">
+        <div className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
+          <div>
+            <p className="eyebrow">Live playable</p>
+            <h2 className="section-title mt-5">Five levels.<br /><em>One high score.</em></h2>
+            <p className="mt-7 max-w-md leading-7 text-[#102832]/65">Pizza Slice turns a swipe into a monthly promotion. Players climb five levels, chase the best score, and challenge friends on the channels they already use.</p>
+            <a href={pizzaPlayUrl} className="mt-8 inline-block rounded-full bg-[#f76f5f] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(247,111,95,0.24)] transition-transform hover:-translate-y-0.5 hover:bg-[#e95d4d]">Play Pizza Slice <Play className="ml-1 inline h-4 w-4 fill-current" /></a>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-[1.4fr_0.8fr]">
+            <img src="/marketing/pizza-play.jpg" alt="Pizzas flying through the Pizza Slice kitchen during level two" className="h-full min-h-64 w-full rounded-[2rem] object-cover shadow-xl" />
+            <div className="grid gap-4">
+              <img src="/marketing/pizza-start.jpg" alt="Pizza Slice title screen, with Slice to start" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
+              <img src="/marketing/pizza-level.jpg" alt="Level one briefing: Prep the toppings" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
+            </div>
+          </div>
+        </div>
+        <div className="mt-14 grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-start">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            {pizzaLevels.map((level) => (
+              <div key={level.number} className="rounded-3xl border border-[#102832]/10 bg-white p-5">
+                <span className="font-mono text-xs font-bold text-[#f76f5f]">{level.number}</span>
+                <h3 className="mt-6 text-lg font-bold leading-tight">{level.name}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#102832]/65">{level.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="rounded-3xl bg-[#102832] p-6 text-white">
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#76e1d3]">This month’s board</p>
+            <div className="mt-4 space-y-2">
+              {pizzaBoard.map(([rank, name, points, medal]) => (
+                <div key={rank} className="flex items-center justify-between rounded-xl bg-white/[0.07] px-3 py-2.5 text-sm">
+                  <span className="flex items-center gap-3"><span className={`rank ${medal}`}>{rank}</span><span>{name}</span></span>
+                  <span className="font-mono text-xs text-[#f4c55e]">{points}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-sm leading-6 text-white/55">Share a score. Friends jump in to knock it off the board and claim the monthly promo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
