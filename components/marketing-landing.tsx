@@ -82,7 +82,7 @@ export function MarketingLanding() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const timer = window.setInterval(() => {
       setActiveMechanic((current) => (current + 1) % mechanics.length)
-    }, 3200)
+    }, 6500)
     return () => window.clearInterval(timer)
   }, [playbookInView])
 
