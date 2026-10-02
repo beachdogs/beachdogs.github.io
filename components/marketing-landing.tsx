@@ -255,6 +255,15 @@ const pizzaBoard = [
 ]
 
 function PizzaSlice() {
+  const gameplayRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = gameplayRef.current
+    if (!video) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    video.play().catch(() => {})
+  }, [])
+
   return (
     <section id="pizza-slice" className="px-6 py-24 lg:px-10">
       <div className="mx-auto max-w-[1240px]">
@@ -266,10 +275,19 @@ function PizzaSlice() {
             <a href={pizzaPlayUrl} className="mt-8 inline-block rounded-full bg-[#f76f5f] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(247,111,95,0.24)] transition-transform hover:-translate-y-0.5 hover:bg-[#e95d4d]">Play Pizza Slice <Play className="ml-1 inline h-4 w-4 fill-current" /></a>
           </div>
           <div className="grid gap-4 sm:grid-cols-[1.4fr_0.8fr]">
-            <img src="/marketing/pizza-play.jpg" alt="Pizzas flying through the Pizza Slice kitchen during level two" className="h-full min-h-64 w-full rounded-[2rem] object-cover shadow-xl" />
+            <video
+              ref={gameplayRef}
+              className="h-full min-h-64 w-full overflow-hidden rounded-[2rem] object-cover shadow-xl"
+              src="/pizza-slice-gameplay.mov"
+              poster="/marketing/pizza-play.jpg"
+              muted
+              loop
+              playsInline
+              aria-label="Pizza Slice gameplay"
+            />
             <div className="grid gap-4">
-              <img src="/marketing/pizza-start.jpg" alt="Pizza Slice title screen, with Slice to start" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
-              <img src="/marketing/pizza-level.jpg" alt="Level one briefing: Prep the toppings" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
+              <img src="/marketing/pizza-score.jpg" alt="Pizza Slice high score screen, with a challenge to share the score" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
+              <img src="/marketing/pizza-order.jpg" alt="Pizza Slice gameplay showing a wrong-order penalty during a chicken and veggie ticket" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
             </div>
           </div>
         </div>
