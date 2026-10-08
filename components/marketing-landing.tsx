@@ -118,7 +118,7 @@ export function MarketingLanding() {
 
       <section id="top" className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-12 px-6 pb-24 pt-14 lg:grid-cols-[1.08fr_0.92fr] lg:px-10 lg:pb-32 lg:pt-24">
         <div>
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#102832]/15 bg-white/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]"><span className="h-2 w-2 rounded-full bg-[#f76f5f]" /> Marketing that plays to win</div>
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#102832]/15 bg-white/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]"><span className="h-2 w-2 rounded-full bg-[#f76f5f]" /> Viral marketing that plays to win</div>
           <h1 className="max-w-3xl font-display text-5xl font-semibold leading-[0.94] tracking-[-0.055em] sm:text-6xl lg:text-[78px]">Make your<br /><em className="font-serif font-normal text-[#f76f5f]">customers</em><br />the campaign.</h1>
           <p className="mt-8 max-w-xl text-lg leading-8 text-[#102832]/70">We help local businesses turn passive scrollers into loyal regulars with playful, high-converting marketing experiences.</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -138,6 +138,8 @@ export function MarketingLanding() {
           <div className="absolute -bottom-8 -left-8 hidden rotate-[-8deg] rounded-2xl border border-[#102832]/10 bg-white px-4 py-3 shadow-xl sm:block"><p className="font-mono text-[10px] uppercase tracking-wider text-[#102832]/50">Players today</p><p className="mt-1 text-2xl font-bold">2,841 <span className="text-sm text-[#f76f5f]">+18%</span></p></div>
         </div>
       </section>
+
+      <UseCases />
 
       <Results />
 
@@ -176,6 +178,91 @@ function formatMetric(value: string, progress: number) {
   const current = metric.target * progress
   const shown = metric.decimals ? current.toFixed(metric.decimals) : String(Math.round(current))
   return `${metric.prefix}${shown}${metric.suffix}`
+}
+
+const useCases = [
+  {
+    title: 'Local Restaurants & Retail',
+    text: 'Interactive scratch-and-win coupon codes or spin-wheel discounts integrated into Meta/Instagram ads.',
+  },
+  {
+    title: 'Lead Generation & Services',
+    text: 'Interactive quizzes (e.g., “Which flooring suits your house?”) that capture user information upon completion.',
+  },
+  {
+    title: 'Local Commerce',
+    text: 'Mini-games offering a promo code at the end to drive local foot traffic or web orders.',
+  },
+]
+
+const deliverables = [
+  {
+    title: 'Custom Interactive Build',
+    text: 'Design and technical setup of a branded HTML5 playable ad experience (mobile-optimized).',
+  },
+  {
+    title: 'Lead-Capture Integration',
+    text: 'High-converting end card with automated SMS/Email coupon delivery (via Mailchimp, Klaviyo, or Zapier).',
+  },
+  {
+    title: 'Ad Campaign Management',
+    text: 'Targeting, setup, and optimization across Nextdoor, Meta (Facebook/Instagram) and TikTok.',
+  },
+  {
+    title: 'Performance Tracking',
+    text: 'Real-time analytics dashboard monitoring plays, opt-ins, and redemption metrics.',
+  },
+]
+
+const advantages = [
+  {
+    title: 'Increased Engagement',
+    text: 'Playable ads are 32% more memorable compared to video and static ads, and have 47% longer attention compared to video ads. By providing an interactive and immersive experience, playable ads create excitement and curiosity, which leads to higher engagement rates and more time spent interacting.',
+  },
+  {
+    title: 'Better Conversion Rates',
+    text: 'Playable ads have 3 times higher conversion rates than traditional video ads, and are 46% more effective compared to other ads. By allowing users to experience a brand’s product or service firsthand, playable ads can help to build trust and confidence in the brand. This can make users more likely to make a purchase or take some other desired action.',
+  },
+]
+
+function UseCases() {
+  return (
+    <section id="use-cases" className="relative z-10 mx-auto max-w-[1240px] px-6 py-24 lg:px-10 lg:py-32">
+      <p className="eyebrow">Use cases</p>
+      <h2 className="section-title mt-5 max-w-3xl">Key use cases for <em>small businesses.</em></h2>
+      <div className="mt-16 grid gap-5 md:grid-cols-3">
+        {useCases.map((item, index) => (
+          <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
+            <span className="font-mono text-xs font-bold text-[#f76f5f]">{String(index + 1).padStart(2, '0')}</span>
+            <h3 className="mt-12 text-xl font-bold">{item.title}</h3>
+            <p className="mt-3 leading-7 text-[#102832]/65">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 className="section-title mt-24 max-w-4xl">Playables offer <em>big advantages</em> for non-gaming companies.</h2>
+      <p className="mt-7 max-w-3xl text-lg leading-8 text-[#102832]/70">For a small business, the best distribution platform for reaching their customers is viral social media that users voluntarily interact and engage to achieve high score unlocked promotional discounts. This means your barrier to advertising is zero cost.</p>
+      <div className="mt-12 grid gap-5 md:grid-cols-2">
+        {advantages.map((item) => (
+          <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
+            <h3 className="text-xl font-bold">{item.title}</h3>
+            <p className="mt-3 leading-7 text-[#102832]/65">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 className="section-title mt-24 max-w-3xl">Campaign <em>deliverables.</em></h2>
+      <div className="mt-16 grid gap-5 md:grid-cols-2">
+        {deliverables.map((item, index) => (
+          <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
+            <span className="font-mono text-xs font-bold text-[#f76f5f]">{String(index + 1).padStart(2, '0')}</span>
+            <h3 className="mt-12 text-xl font-bold">{item.title}</h3>
+            <p className="mt-3 leading-7 text-[#102832]/65">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 }
 
 function Results() {
