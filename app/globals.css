@@ -175,6 +175,34 @@
 }
 
 @layer components {
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 0.95;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+  .logo i {
+    color: #ff765d;
+    font-style: normal;
+  }
+  .logo-mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #ff765d;
+    color: #fff9ed;
+    transform: rotate(-13deg);
+  }
+  .logo-mark svg {
+    width: 20px;
+    height: 20px;
+  }
   .eyebrow {
     @apply font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#f76f5f];
   }

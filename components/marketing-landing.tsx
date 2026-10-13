@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, BarChart3, ChevronDown, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Zap } from 'lucide-react'
+import { ArrowUpRight, BarChart3, ChevronDown, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
 
 const mechanics = [
   {
@@ -90,9 +90,9 @@ export function MarketingLanding() {
     <main className="min-h-screen overflow-hidden bg-[#f8f6f0] text-[#102832] selection:bg-[#f76f5f] selection:text-white">
       <div className="absolute inset-x-0 top-0 -z-0 h-[720px] bg-[radial-gradient(circle_at_75%_10%,rgba(118,225,211,0.2),transparent_24%),radial-gradient(circle_at_15%_0%,rgba(255,196,93,0.22),transparent_22%)]" />
       <nav className="relative z-10 mx-auto flex max-w-[1240px] items-center justify-between px-6 py-6 lg:px-10">
-        <a href="#top" className="flex items-center gap-3" aria-label="Beach Dog Marketing home">
-          <img src="/wave_logo.jpg" alt="" className="h-12 w-12 shrink-0 rounded-full object-cover" />
-          <span className="font-mono text-[13px] font-bold uppercase tracking-[0.12em]">Beach Dog<br /><span className="text-[#f76f5f]">Marketing</span></span>
+        <a href="#top" className="logo" aria-label="Beach Dog Marketing home">
+          <span className="logo-mark"><Waves aria-hidden="true" /></span>
+          <span>Beach Dog<br /><i>Marketing</i></span>
         </a>
         <div className={`nav-3d hidden md:block ${navOpen ? 'is-open' : ''}`}>
           <div className="nav-3d-stage">
