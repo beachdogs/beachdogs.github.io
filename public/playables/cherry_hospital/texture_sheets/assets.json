@@ -1,0 +1,340 @@
+{"frames": [
+
+{
+	"filename": "Aquaroum1.png",
+	"frame": {"x":1741,"y":1406,"w":135,"h":166},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":166},
+	"sourceSize": {"w":135,"h":166}
+},
+{
+	"filename": "border_bar.png",
+	"frame": {"x":963,"y":646,"w":203,"h":851},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":203,"h":851},
+	"sourceSize": {"w":203,"h":851}
+},
+{
+	"filename": "brick_corner.png",
+	"frame": {"x":1531,"y":1390,"w":84,"h":251},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":251},
+	"sourceSize": {"w":84,"h":251}
+},
+{
+	"filename": "brick_corner2.png",
+	"frame": {"x":1617,"y":1390,"w":60,"h":252},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":252},
+	"sourceSize": {"w":60,"h":252}
+},
+{
+	"filename": "brick_corner3.png",
+	"frame": {"x":1894,"y":1223,"w":48,"h":240},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":240},
+	"sourceSize": {"w":48,"h":240}
+},
+{
+	"filename": "brick_corner4.png",
+	"frame": {"x":1679,"y":1390,"w":60,"h":252},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":252},
+	"sourceSize": {"w":60,"h":252}
+},
+{
+	"filename": "brick_wall_1.png",
+	"frame": {"x":1144,"y":1499,"w":127,"h":293},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":293},
+	"sourceSize": {"w":127,"h":293}
+},
+{
+	"filename": "brick_wall_2.png",
+	"frame": {"x":1273,"y":1451,"w":127,"h":293},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":293},
+	"sourceSize": {"w":127,"h":293}
+},
+{
+	"filename": "brick_window.png",
+	"frame": {"x":1410,"y":705,"w":128,"h":293},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":293},
+	"sourceSize": {"w":128,"h":293}
+},
+{
+	"filename": "brick_window2.png",
+	"frame": {"x":1402,"y":1451,"w":127,"h":293},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":293},
+	"sourceSize": {"w":127,"h":293}
+},
+{
+	"filename": "btn.png",
+	"frame": {"x":1,"y":1424,"w":600,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":600,"h":192},
+	"sourceSize": {"w":600,"h":192}
+},
+{
+	"filename": "btn_green.png",
+	"frame": {"x":1,"y":1618,"w":600,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":600,"h":192},
+	"sourceSize": {"w":600,"h":192}
+},
+{
+	"filename": "Chair2.png",
+	"frame": {"x":1741,"y":1574,"w":113,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":113,"h":127},
+	"sourceSize": {"w":113,"h":127}
+},
+{
+	"filename": "cloud.png",
+	"frame": {"x":1216,"y":538,"w":370,"h":165},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":370,"h":165},
+	"sourceSize": {"w":370,"h":165}
+},
+{
+	"filename": "Desk2.png",
+	"frame": {"x":1735,"y":894,"w":169,"h":167},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":169,"h":167},
+	"sourceSize": {"w":169,"h":167}
+},
+{
+	"filename": "entrance.png",
+	"frame": {"x":1216,"y":1,"w":586,"h":535},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":586,"h":535},
+	"sourceSize": {"w":586,"h":535}
+},
+{
+	"filename": "floorTile.png",
+	"frame": {"x":1410,"y":1000,"w":68,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":68,"h":51},
+	"sourceSize": {"w":68,"h":51}
+},
+{
+	"filename": "glass machine.png",
+	"frame": {"x":1538,"y":1232,"w":169,"h":156},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":169,"h":156},
+	"sourceSize": {"w":169,"h":156}
+},
+{
+	"filename": "glass_door.png",
+	"frame": {"x":603,"y":1424,"w":263,"h":371},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":263,"h":371},
+	"sourceSize": {"w":263,"h":371}
+},
+{
+	"filename": "glow.png",
+	"frame": {"x":868,"y":1499,"w":274,"h":275},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":274,"h":275},
+	"sourceSize": {"w":274,"h":275}
+},
+{
+	"filename": "grass.png",
+	"frame": {"x":1,"y":1,"w":1213,"h":643},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1213,"h":643},
+	"sourceSize": {"w":1213,"h":643}
+},
+{
+	"filename": "hand.png",
+	"frame": {"x":1531,"y":1644,"w":95,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":11,"w":95,"h":110},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "hospital.png",
+	"frame": {"x":1,"y":646,"w":960,"h":540},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":960,"h":540},
+	"sourceSize": {"w":960,"h":540}
+},
+{
+	"filename": "hospital_wall1.png",
+	"frame": {"x":1409,"y":1078,"w":127,"h":293},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":293},
+	"sourceSize": {"w":127,"h":293}
+},
+{
+	"filename": "hospital_wall2.png",
+	"frame": {"x":1804,"y":1,"w":128,"h":295},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":295},
+	"sourceSize": {"w":128,"h":295}
+},
+{
+	"filename": "hospital_wall_corner.png",
+	"frame": {"x":1804,"y":298,"w":83,"h":233},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":233},
+	"sourceSize": {"w":83,"h":233}
+},
+{
+	"filename": "hospital_window1.png",
+	"frame": {"x":1168,"y":705,"w":240,"h":371},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":240,"h":371},
+	"sourceSize": {"w":240,"h":371}
+},
+{
+	"filename": "hospital_window2.png",
+	"frame": {"x":1168,"y":1078,"w":239,"h":371},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":239,"h":371},
+	"sourceSize": {"w":239,"h":371}
+},
+{
+	"filename": "left_up.png",
+	"frame": {"x":1168,"y":646,"w":32,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":41},
+	"sourceSize": {"w":32,"h":41}
+},
+{
+	"filename": "logo.png",
+	"frame": {"x":1588,"y":538,"w":356,"h":178},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":356,"h":178},
+	"sourceSize": {"w":356,"h":178}
+},
+{
+	"filename": "machine1.png",
+	"frame": {"x":1741,"y":1223,"w":151,"h":181},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":181},
+	"sourceSize": {"w":151,"h":181}
+},
+{
+	"filename": "machine2.png",
+	"frame": {"x":1538,"y":1057,"w":178,"h":173},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":173},
+	"sourceSize": {"w":178,"h":173}
+},
+{
+	"filename": "machine3.png",
+	"frame": {"x":1540,"y":894,"w":193,"h":161},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":193,"h":161},
+	"sourceSize": {"w":193,"h":161}
+},
+{
+	"filename": "machine4.png",
+	"frame": {"x":1628,"y":1644,"w":89,"h":126},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":89,"h":126},
+	"sourceSize": {"w":89,"h":126}
+},
+{
+	"filename": "mh_logo.png",
+	"frame": {"x":1,"y":1188,"w":764,"h":234},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":764,"h":234},
+	"sourceSize": {"w":764,"h":234}
+},
+{
+	"filename": "nurse.png",
+	"frame": {"x":1882,"y":718,"w":58,"h":147},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":147},
+	"sourceSize": {"w":58,"h":147}
+},
+{
+	"filename": "particle.png",
+	"frame": {"x":1409,"y":1373,"w":68,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":68,"h":51},
+	"sourceSize": {"w":68,"h":51}
+},
+{
+	"filename": "Reception_Desk.png",
+	"frame": {"x":767,"y":1188,"w":193,"h":205},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":193,"h":205},
+	"sourceSize": {"w":193,"h":205}
+},
+{
+	"filename": "right_up.png",
+	"frame": {"x":1889,"y":298,"w":32,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":41},
+	"sourceSize": {"w":32,"h":41}
+},
+{
+	"filename": "sidewalk.png",
+	"frame": {"x":1540,"y":718,"w":340,"h":174},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":340,"h":174},
+	"sourceSize": {"w":340,"h":174}
+},
+{
+	"filename": "tube_machine.png",
+	"frame": {"x":1718,"y":1063,"w":180,"h":158},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":158},
+	"sourceSize": {"w":180,"h":158}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "assets.png",
+	"format": "RGBA8888",
+	"size": {"w":1945,"h":1811},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:087c1559eac1dccce3238da9e86ff276:de797a4cb2c22942ddbfa79e3a2abc6f:a759b6bbc8381ac9c472b28f589ad0d6$"
+}
+}

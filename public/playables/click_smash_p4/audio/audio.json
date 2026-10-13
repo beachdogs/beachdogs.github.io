@@ -1,0 +1,37 @@
+{
+  "resources": [
+    "audio.mp3"
+  ],
+  "spritemap": {
+    "Digging": {
+      "start": 0,
+      "end": 1.9853061224489796,
+      "loop": false
+    },
+    "WheelGoldNormal": {
+      "start": 3,
+      "end": 5.115918367346939,
+      "loop": false
+    },
+    "WheelSpinEnd": {
+      "start": 7,
+      "end": 9.168163265306122,
+      "loop": false
+    },
+    "BackgroundMusic_1": {
+      "start": 11,
+      "end": 32.781609977324266,
+      "loop": true
+    },
+    "GainReward": {
+      "start": 34,
+      "end": 35.167913832199545,
+      "loop": false
+    },
+    "WheelRotateLoop": {
+      "start": 37,
+      "end": 37.85818594104308,
+      "loop": false
+    }
+  }
+}
