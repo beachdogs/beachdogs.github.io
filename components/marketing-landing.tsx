@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type TransitionEvent } from 'react'
 import { ArrowUpRight, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
 
 const mechanics = [
@@ -461,8 +461,11 @@ function shufflePlayables<T>(items: T[]) {
 function PlayableGallery() {
   const [playables] = useState(() => shufflePlayables(galleryPlayables))
   const count = playables.length
-  const slides = [playables[count - 1], ...playables, playables[0]]
-  const [position, setPosition] = useState(1)
+  const cloneCount = 3
+  const slides = [...playables.slice(-cloneCount), ...playables, ...playables.slice(0, cloneCount)]
+  const firstReal = cloneCount
+  const lastReal = cloneCount + count - 1
+  const [position, setPosition] = useState(firstReal)
   const [animate, setAnimate] = useState(true)
   const [engaged, setEngaged] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -470,6 +473,11 @@ function PlayableGallery() {
   const [frameWidth, setFrameWidth] = useState(0)
   const frameRef = useRef<HTMLDivElement>(null)
   const dragRef = useRef({ x: 0, moved: false })
+  const wrappingRef = useRef(false)
+  const animatingRef = useRef(false)
+  const positionRef = useRef(position)
+
+  positionRef.current = position
 
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -495,53 +503,68 @@ function PlayableGallery() {
   }, [])
 
   useEffect(() => {
-    if (position !== count + 1) return
-    const timer = window.setTimeout(() => {
-      setAnimate(false)
-      setPosition(1)
-    }, gallerySlideMs)
-    return () => window.clearTimeout(timer)
-  }, [position, count])
-
-  useEffect(() => {
     if (animate) return
-    const frame = window.requestAnimationFrame(() => setAnimate(true))
+    const frame = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        wrappingRef.current = false
+        animatingRef.current = false
+        setAnimate(true)
+      })
+    })
     return () => window.cancelAnimationFrame(frame)
   }, [animate])
 
   useEffect(() => {
     if (engaged || reduceMotion || !inView) return
     const timer = window.setInterval(() => {
-      setAnimate(true)
-      setPosition((current) => (current >= count + 1 ? 1 : current + 1))
+      show(positionRef.current + 1)
     }, 5200)
     return () => window.clearInterval(timer)
-  }, [engaged, reduceMotion, inView, count])
+  }, [engaged, reduceMotion, inView])
 
-  const cardWidth = frameWidth ? Math.min(980, Math.max(280, frameWidth * 0.78)) : 0
-  const gap = 20
+  useEffect(() => {
+    if (!reduceMotion) return
+    const current = positionRef.current
+    animatingRef.current = false
+    if (current > lastReal) snapTo(current - count)
+    else if (current < firstReal) snapTo(current + count)
+  }, [position, reduceMotion, lastReal, firstReal, count])
+
+  const cardWidth = frameWidth ? Math.min(280, Math.max(180, frameWidth * 0.22)) : 0
+  const gap = 14
   const offset = frameWidth ? (frameWidth - cardWidth) / 2 - position * (cardWidth + gap) : 0
-  const activeTitle = playables[((position - 1) % count + count) % count].title
+  const activeIndex = ((position - firstReal) % count + count) % count
+  const activeTitle = playables[activeIndex].title
+
+  function snapTo(realPosition: number) {
+    wrappingRef.current = true
+    animatingRef.current = false
+    setAnimate(false)
+    setPosition(realPosition)
+  }
+
+  function handleTrackTransitionEnd(event: TransitionEvent<HTMLDivElement>) {
+    if (event.target !== event.currentTarget || event.propertyName !== 'transform') return
+    if (wrappingRef.current) return
+    const current = positionRef.current
+    animatingRef.current = false
+    if (current > lastReal) snapTo(current - count)
+    else if (current < firstReal) snapTo(current + count)
+  }
 
   function show(next: number) {
+    if (wrappingRef.current || animatingRef.current) return
+    animatingRef.current = true
     setAnimate(true)
     setPosition(next)
   }
 
   function previous() {
-    if (position <= 1) {
-      setAnimate(false)
-      setPosition(count + 1)
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => show(count))
-      })
-      return
-    }
-    show(position - 1)
+    show(positionRef.current - 1)
   }
 
   function next() {
-    show(position >= count + 1 ? 2 : position + 1)
+    show(positionRef.current + 1)
   }
 
   function mutePreview(frame: HTMLIFrameElement) {
@@ -566,6 +589,7 @@ function PlayableGallery() {
             transform: `translate3d(${offset}px, 0, 0)`,
             transition: animate && !reduceMotion ? `transform ${gallerySlideMs}ms ${gallerySlideEase}` : 'none',
           }}
+          onTransitionEnd={handleTrackTransitionEnd}
           onPointerDown={(event) => {
             dragRef.current = { x: event.clientX, moved: false }
           }}
@@ -584,32 +608,32 @@ function PlayableGallery() {
           }}
         >
           {slides.map((playable, slide) => {
-            const near = Math.abs(slide - position) <= 1 || (position === count + 1 && slide === 1)
+            const near = Math.abs(slide - position) <= 2
             return (
-              <article key={`${playable.href}-${slide}`} className="shrink-0" style={{ width: cardWidth || '78%' }}>
-                <div className="relative overflow-hidden rounded-[1.75rem] bg-[#102832] shadow-[0_24px_60px_rgba(16,40,50,0.18)]">
+              <article key={`${playable.href}-${slide}`} className="shrink-0" style={{ width: cardWidth || '22%' }}>
+                <div className="relative overflow-hidden rounded-lg bg-[#102832] shadow-[0_16px_36px_rgba(16,40,50,0.14)]">
                   {near ? (
                     <iframe
                       src={playable.href}
                       title={playable.title}
                       tabIndex={-1}
                       onLoad={(event) => mutePreview(event.currentTarget)}
-                      className="pointer-events-none h-[280px] w-full border-0 sm:h-[420px] lg:h-[520px]"
+                      className="pointer-events-none h-[234px] w-full border-0 sm:h-[312px] lg:h-[364px]"
                     />
                   ) : (
-                    <div className="h-[280px] w-full bg-[#173842] sm:h-[420px] lg:h-[520px]" />
+                    <div className="h-[234px] w-full bg-[#173842] sm:h-[312px] lg:h-[364px]" />
                   )}
                   <a href={playable.href} onClick={() => setEngaged(true)} className="absolute inset-0" aria-label={`Play ${playable.title}`} />
                 </div>
-                <h3 className="mt-5 text-center text-lg font-bold tracking-[-0.03em]">{playable.title}</h3>
+                <h3 className="mt-3 text-center text-sm font-bold tracking-[-0.03em] sm:text-base">{playable.title}</h3>
               </article>
             )
           })}
         </div>
-        <button type="button" aria-label="Previous playable" onClick={previous} className="absolute left-4 top-[38%] grid h-11 w-11 place-items-center rounded-full bg-white/90 text-[#102832] shadow-lg transition-transform hover:scale-105 sm:left-8">
+        <button type="button" aria-label="Previous playable" onClick={previous} className="absolute left-4 top-[117px] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#102832] shadow-lg transition-transform hover:scale-105 sm:left-8 sm:top-[156px] lg:top-[182px]">
           <ChevronLeft className="h-5 w-5" />
         </button>
-        <button type="button" aria-label="Next playable" onClick={next} className="absolute right-4 top-[38%] grid h-11 w-11 place-items-center rounded-full bg-white/90 text-[#102832] shadow-lg transition-transform hover:scale-105 sm:right-8">
+        <button type="button" aria-label="Next playable" onClick={next} className="absolute right-4 top-[117px] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#102832] shadow-lg transition-transform hover:scale-105 sm:right-8 sm:top-[156px] lg:top-[182px]">
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
