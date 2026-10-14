@@ -241,6 +241,7 @@ function UseCases() {
           </div>
         ))}
       </div>
+      <img src="/Gemini_Generated_discounts-and-win-codes-diagram.jpg" alt="Shop and dine local spin-to-win wheel outside Local Grind and Local Eats, with scratch-and-win, 25% off, and win-prize cards that reveal local discount codes for restaurants and retail." className="mt-10 w-full rounded-[2rem] shadow-xl" />
 
       <h2 className="section-title mt-24 max-w-4xl">Playables offer <em>big advantages</em> for non-gaming companies.</h2>
       <p className="mt-7 max-w-3xl text-lg leading-8 text-[#102832]/70">For a small business, the best distribution platform for reaching their customers is viral social media that users voluntarily interact and engage to achieve high score unlocked promotional discounts. This means your barrier to advertising is zero cost.</p>
@@ -253,7 +254,8 @@ function UseCases() {
         ))}
       </div>
 
-      <h2 className="section-title mt-24 max-w-3xl">Campaign <em>deliverables.</em></h2>
+      <img src="/Gemini_Generated_interactive-quizzes-diagram.jpg" alt="Lead generation flooring quiz covering rooms, style, and usage, then a captured user profile and a flooring recommendation that books a consultation." className="mt-24 w-full rounded-[2rem] shadow-xl" />
+      <h2 className="section-title mt-10 max-w-3xl">Campaign <em>deliverables.</em></h2>
       <div className="mt-16 grid gap-5 md:grid-cols-2">
         {deliverables.map((item, index) => (
           <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">

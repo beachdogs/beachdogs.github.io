@@ -61,6 +61,8 @@ Key use cases for small businesses.
 2. **Lead Generation & Services.** Interactive quizzes (e.g., “Which flooring suits your house?”) that capture user information upon completion.
 3. **Local Commerce.** Mini-games offering a promo code at the end to drive local foot traffic or web orders.
 
+![Shop and dine local spin-to-win wheel outside Local Grind and Local Eats, with scratch-and-win, 25% off, and win-prize cards that reveal local discount codes for restaurants and retail.](public/Gemini_Generated_discounts-and-win-codes-diagram.jpg)
+
 ## Playables offer big advantages for non-gaming companies.
 
 For a small business, the best distribution platform for reaching their customers is viral social media that users voluntarily interact and engage to achieve high score unlocked promotional discounts. This means your barrier to advertising is zero cost.
@@ -72,6 +74,8 @@ Playable ads are 32% more memorable compared to video and static ads, and have 4
 ### Better Conversion Rates
 
 Playable ads have 3 times higher conversion rates than traditional video ads, and are 46% more effective compared to other ads. By allowing users to experience a brand’s product or service firsthand, playable ads can help to build trust and confidence in the brand. This can make users more likely to make a purchase or take some other desired action.
+
+![Lead generation flooring quiz covering rooms, style, and usage, then a captured user profile and a flooring recommendation that books a consultation.](public/Gemini_Generated_interactive-quizzes-diagram.jpg)
 
 ## Campaign deliverables.
 
