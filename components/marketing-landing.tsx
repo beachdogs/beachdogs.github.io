@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, BarChart3, ChevronDown, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
+import { ArrowUpRight, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
 
 const mechanics = [
   {
@@ -155,6 +155,8 @@ export function MarketingLanding() {
       <section id="how-it-works" className="bg-[#dff2eb] px-6 py-24 lg:px-10"><div className="mx-auto max-w-[1240px]"><div className="flex flex-col justify-between gap-7 sm:flex-row sm:items-end"><div><p className="eyebrow">The ripple effect</p><h2 className="section-title mt-5 max-w-xl">Small plays.<br /><em>Big waves.</em></h2></div><p className="max-w-sm leading-7 text-[#102832]/65">A 30-second daily challenge can create a week of social momentum for your business.</p></div><div className="mt-16 grid gap-5 md:grid-cols-3"><Step num="01" title="Capture attention" text="Give people something fun to do, not another discount to ignore." /><Step num="02" title="Reward the return" text="Turn every visit into progress, status, and a reason to come back tomorrow." /><Step num="03" title="Let it travel" text="Players share their score. Their friends join. Your reach compounds." /></div></div></section>
 
       <PizzaSlice />
+
+      <PlayableGallery />
 
       <section id="contact" className="contact-stage relative overflow-hidden bg-[#f76f5f] px-6 py-24 text-white lg:px-10 lg:py-28"><div aria-hidden="true" className="contact-ring contact-ring-back absolute -right-12 -top-24 h-80 w-80" /><div aria-hidden="true" className="contact-ring contact-ring-front absolute -bottom-36 left-1/3 h-72 w-72" /><div className="relative mx-auto flex max-w-[1240px] flex-col justify-between gap-12 lg:flex-row lg:items-end"><div><p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/70">Ready when you are</p><h2 className="mt-5 max-w-2xl font-display text-5xl font-semibold leading-[0.95] tracking-[-0.05em] sm:text-7xl">Let’s make<br /><em className="font-serif font-normal">some waves.</em></h2></div><div className="w-full max-w-md"><p className="mb-5 text-white/80">Tell us where you want to grow and we’ll send over a few campaign ideas made for your business.</p>{submitted ? <div className="rounded-2xl bg-white px-5 py-4 font-semibold text-[#102832]">You’re on the list. We’ll be in touch soon.</div> : <form onSubmit={(event) => { event.preventDefault(); if (email.trim()) setSubmitted(true) }} className="flex gap-2 rounded-full bg-white p-2"><label className="sr-only" htmlFor="email">Your email address</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email address" className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#102832] outline-none placeholder:text-[#102832]/45" /><button className="shrink-0 rounded-full bg-[#102832] px-5 py-3 text-sm font-bold text-white transition-transform hover:scale-105" type="submit">Get ideas <ArrowUpRight className="ml-1 inline h-4 w-4" /></button></form>}</div></div></section>
       <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10"><span>© 2026 Beach Dog Marketing</span><span>Made for local businesses with big energy.</span></footer>
@@ -340,6 +342,7 @@ const pizzaLevels = [
   { number: '03', name: 'Ticket time', text: 'Only the order on the ticket scores.' },
   { number: '04', name: 'Multi-slice', text: 'Three swipes break a pie into six pieces.' },
   { number: '05', name: 'Oven’s hot', text: 'Dodge the burnt pies. Then the dinner rush crowns the score.' },
+  { number: '06', name: 'Dinner Dash', text: 'Everything gets thrown at you. Every mechanic from the earlier levels hits at the same time.' },
 ]
 
 const pizzaBoard = [
@@ -364,8 +367,8 @@ function PizzaSlice() {
         <div className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <p className="eyebrow">Live playable</p>
-            <h2 className="section-title mt-5">Five levels.<br /><em>One high score.</em></h2>
-            <p className="mt-7 max-w-md leading-7 text-[#102832]/65">Pizza Slice turns a swipe into a monthly promotion. Players climb five levels, chase the best score, and challenge friends on the channels they already use.</p>
+            <h2 className="section-title mt-5">Six levels.<br /><em>One high score.</em></h2>
+            <p className="mt-7 max-w-md leading-7 text-[#102832]/65">Pizza Slice turns a swipe into a monthly promotion. Players climb six levels, chase the best score, and challenge friends on the channels they already use.</p>
             <a href={pizzaPlayUrl} className="mt-8 inline-block rounded-full bg-[#f76f5f] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(247,111,95,0.24)] transition-transform hover:-translate-y-0.5 hover:bg-[#e95d4d]">Play Pizza Slice <Play className="ml-1 inline h-4 w-4 fill-current" /></a>
           </div>
           <div className="grid gap-4 sm:grid-cols-[1.4fr_0.8fr]">
@@ -386,7 +389,7 @@ function PizzaSlice() {
           </div>
         </div>
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-start">
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {pizzaLevels.map((level) => (
               <div key={level.number} className="rounded-3xl border border-[#102832]/10 bg-white p-5">
                 <span className="font-mono text-xs font-bold text-[#f76f5f]">{level.number}</span>
@@ -409,6 +412,175 @@ function PizzaSlice() {
           </div>
         </div>
       </div>
+    </section>
+  )
+}
+
+const galleryPlayables = [
+  { title: 'Tiny Gladiators', href: '/playables/bb_tinyg/index.html' },
+  { title: 'My Singing Monsters', href: '/playables/bigbl_mysin/index.html' },
+  { title: 'My Hospital', href: '/playables/cherry_hospital/index.html' },
+  { title: 'Final Fantasy XV: A New Empire', href: '/playables/chocoborunner/index.html' },
+  { title: 'Bounzy!', href: '/playables/gg_bounzy_bt_allassets/index.html' },
+  { title: 'Island King', href: '/playables/click_smash_p4/index.html' },
+  { title: 'Merged!', href: '/playables/gg_merged/index.html' },
+]
+
+function PlayableGallery() {
+  const count = galleryPlayables.length
+  const slides = [galleryPlayables[count - 1], ...galleryPlayables, galleryPlayables[0]]
+  const [position, setPosition] = useState(1)
+  const [animate, setAnimate] = useState(true)
+  const [paused, setPaused] = useState(false)
+  const [reduceMotion, setReduceMotion] = useState(false)
+  const [inView, setInView] = useState(false)
+  const [frameWidth, setFrameWidth] = useState(0)
+  const frameRef = useRef<HTMLDivElement>(null)
+  const dragRef = useRef({ x: 0, moved: false })
+
+  useEffect(() => {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const apply = () => setReduceMotion(motion.matches)
+    apply()
+    motion.addEventListener('change', apply)
+    return () => motion.removeEventListener('change', apply)
+  }, [])
+
+  useEffect(() => {
+    const node = frameRef.current
+    if (!node) return
+    const measure = () => setFrameWidth(node.clientWidth)
+    measure()
+    const resize = new ResizeObserver(measure)
+    resize.observe(node)
+    const view = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.45 })
+    view.observe(node)
+    return () => {
+      resize.disconnect()
+      view.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (position !== count + 1) return
+    const timer = window.setTimeout(() => {
+      setAnimate(false)
+      setPosition(1)
+    }, 760)
+    return () => window.clearTimeout(timer)
+  }, [position, count])
+
+  useEffect(() => {
+    if (animate) return
+    const frame = window.requestAnimationFrame(() => setAnimate(true))
+    return () => window.cancelAnimationFrame(frame)
+  }, [animate])
+
+  useEffect(() => {
+    if (paused || reduceMotion || !inView) return
+    const timer = window.setInterval(() => {
+      setAnimate(true)
+      setPosition((current) => (current >= count + 1 ? 1 : current + 1))
+    }, 5200)
+    return () => window.clearInterval(timer)
+  }, [paused, reduceMotion, inView, count])
+
+  const cardWidth = frameWidth ? Math.min(980, Math.max(280, frameWidth * 0.78)) : 0
+  const gap = 20
+  const offset = frameWidth ? (frameWidth - cardWidth) / 2 - position * (cardWidth + gap) : 0
+  const activeTitle = galleryPlayables[((position - 1) % count + count) % count].title
+
+  function show(next: number) {
+    setAnimate(true)
+    setPosition(next)
+  }
+
+  function previous() {
+    if (position <= 1) {
+      setAnimate(false)
+      setPosition(count + 1)
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => show(count))
+      })
+      return
+    }
+    show(position - 1)
+  }
+
+  function next() {
+    show(position >= count + 1 ? 2 : position + 1)
+  }
+
+  function mutePreview(frame: HTMLIFrameElement) {
+    try {
+      frame.contentDocument?.querySelectorAll('audio, video').forEach((media) => {
+        const clip = media as HTMLMediaElement
+        clip.muted = true
+        clip.pause()
+      })
+    } catch {
+      // The preview stays visible when the frame cannot be muted.
+    }
+  }
+
+  return (
+    <section id="playable-gallery" aria-label="Playable gallery" className="overflow-hidden py-24" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div ref={frameRef} className="relative">
+        <div
+          className="flex items-stretch"
+          style={{
+            gap,
+            transform: `translate3d(${offset}px, 0, 0)`,
+            transition: animate && !reduceMotion ? 'transform 760ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+          }}
+          onPointerDown={(event) => {
+            dragRef.current = { x: event.clientX, moved: false }
+          }}
+          onPointerMove={(event) => {
+            if (Math.abs(event.clientX - dragRef.current.x) > 8) dragRef.current.moved = true
+          }}
+          onPointerUp={(event) => {
+            const delta = event.clientX - dragRef.current.x
+            if (delta > 48) previous()
+            else if (delta < -48) next()
+          }}
+          onClickCapture={(event) => {
+            if (!dragRef.current.moved) return
+            event.preventDefault()
+            event.stopPropagation()
+          }}
+        >
+          {slides.map((playable, slide) => {
+            const near = Math.abs(slide - position) <= 1 || (position === count + 1 && slide === 1)
+            return (
+              <article key={`${playable.href}-${slide}`} className="shrink-0" style={{ width: cardWidth || '78%' }}>
+                <div className="relative overflow-hidden rounded-[1.75rem] bg-[#102832] shadow-[0_24px_60px_rgba(16,40,50,0.18)]">
+                  {near ? (
+                    <iframe
+                      src={playable.href}
+                      title={playable.title}
+                      tabIndex={-1}
+                      onLoad={(event) => mutePreview(event.currentTarget)}
+                      className="pointer-events-none h-[280px] w-full border-0 sm:h-[420px] lg:h-[520px]"
+                    />
+                  ) : (
+                    <div className="h-[280px] w-full bg-[#173842] sm:h-[420px] lg:h-[520px]" />
+                  )}
+                  <a href={playable.href} className="absolute inset-0" aria-label={`Play ${playable.title}`} />
+                </div>
+                <h3 className="mt-5 text-center text-lg font-bold tracking-[-0.03em]">{playable.title}</h3>
+              </article>
+            )
+          })}
+        </div>
+        <button type="button" aria-label="Previous playable" onClick={previous} className="absolute left-4 top-[38%] grid h-11 w-11 place-items-center rounded-full bg-white/90 text-[#102832] shadow-lg transition-transform hover:scale-105 sm:left-8">
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button type="button" aria-label="Next playable" onClick={next} className="absolute right-4 top-[38%] grid h-11 w-11 place-items-center rounded-full bg-white/90 text-[#102832] shadow-lg transition-transform hover:scale-105 sm:right-8">
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+      <p className="sr-only" aria-live="polite">{activeTitle}</p>
     </section>
   )
 }

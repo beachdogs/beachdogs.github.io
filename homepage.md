@@ -117,9 +117,9 @@ A 30-second daily challenge can create a week of social momentum for your busine
 
 ## Live playable
 
-Five levels. One high score.
+Six levels. One high score.
 
-Pizza Slice turns a swipe into a monthly promotion. Players climb five levels, chase the best score, and challenge friends on the channels they already use.
+Pizza Slice turns a swipe into a monthly promotion. Players climb six levels, chase the best score, and challenge friends on the channels they already use.
 
 [Play Pizza Slice](https://beachdogs.github.io/playables/pizza-slice/)
 
@@ -134,6 +134,7 @@ Pizza Slice gameplay: [video](public/pizza-slice-gameplay.mov)
 3. **Ticket time.** Only the order on the ticket scores.
 4. **Multi-slice.** Three swipes break a pie into six pieces.
 5. **Oven’s hot.** Dodge the burnt pies. Then the dinner rush crowns the score.
+6. **Dinner Dash.** Everything gets thrown at you. Every mechanic from the earlier levels hits at the same time.
 
 ### This month’s board
 
