@@ -446,12 +446,25 @@ const galleryPlayables = [
   { title: 'Merged!', href: '/playables/gg_merged/index.html' },
 ]
 
+const gallerySlideMs = 1100
+const gallerySlideEase = 'cubic-bezier(0.22, 1, 0.36, 1)'
+
+function shufflePlayables<T>(items: T[]) {
+  const next = [...items]
+  for (let index = next.length - 1; index > 0; index -= 1) {
+    const swap = Math.floor(Math.random() * (index + 1))
+    ;[next[index], next[swap]] = [next[swap], next[index]]
+  }
+  return next
+}
+
 function PlayableGallery() {
-  const count = galleryPlayables.length
-  const slides = [galleryPlayables[count - 1], ...galleryPlayables, galleryPlayables[0]]
+  const [playables] = useState(() => shufflePlayables(galleryPlayables))
+  const count = playables.length
+  const slides = [playables[count - 1], ...playables, playables[0]]
   const [position, setPosition] = useState(1)
   const [animate, setAnimate] = useState(true)
-  const [paused, setPaused] = useState(false)
+  const [engaged, setEngaged] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
   const [inView, setInView] = useState(false)
   const [frameWidth, setFrameWidth] = useState(0)
@@ -486,7 +499,7 @@ function PlayableGallery() {
     const timer = window.setTimeout(() => {
       setAnimate(false)
       setPosition(1)
-    }, 760)
+    }, gallerySlideMs)
     return () => window.clearTimeout(timer)
   }, [position, count])
 
@@ -497,18 +510,18 @@ function PlayableGallery() {
   }, [animate])
 
   useEffect(() => {
-    if (paused || reduceMotion || !inView) return
+    if (engaged || reduceMotion || !inView) return
     const timer = window.setInterval(() => {
       setAnimate(true)
       setPosition((current) => (current >= count + 1 ? 1 : current + 1))
     }, 5200)
     return () => window.clearInterval(timer)
-  }, [paused, reduceMotion, inView, count])
+  }, [engaged, reduceMotion, inView, count])
 
   const cardWidth = frameWidth ? Math.min(980, Math.max(280, frameWidth * 0.78)) : 0
   const gap = 20
   const offset = frameWidth ? (frameWidth - cardWidth) / 2 - position * (cardWidth + gap) : 0
-  const activeTitle = galleryPlayables[((position - 1) % count + count) % count].title
+  const activeTitle = playables[((position - 1) % count + count) % count].title
 
   function show(next: number) {
     setAnimate(true)
@@ -544,14 +557,14 @@ function PlayableGallery() {
   }
 
   return (
-    <section id="playable-gallery" aria-label="Playable gallery" className="overflow-hidden py-24" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <section id="playable-gallery" aria-label="Playable gallery" className="overflow-hidden py-24">
       <div ref={frameRef} className="relative">
         <div
           className="flex items-stretch"
           style={{
             gap,
             transform: `translate3d(${offset}px, 0, 0)`,
-            transition: animate && !reduceMotion ? 'transform 760ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+            transition: animate && !reduceMotion ? `transform ${gallerySlideMs}ms ${gallerySlideEase}` : 'none',
           }}
           onPointerDown={(event) => {
             dragRef.current = { x: event.clientX, moved: false }
@@ -586,7 +599,7 @@ function PlayableGallery() {
                   ) : (
                     <div className="h-[280px] w-full bg-[#173842] sm:h-[420px] lg:h-[520px]" />
                   )}
-                  <a href={playable.href} className="absolute inset-0" aria-label={`Play ${playable.title}`} />
+                  <a href={playable.href} onClick={() => setEngaged(true)} className="absolute inset-0" aria-label={`Play ${playable.title}`} />
                 </div>
                 <h3 className="mt-5 text-center text-lg font-bold tracking-[-0.03em]">{playable.title}</h3>
               </article>
