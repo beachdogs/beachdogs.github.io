@@ -384,28 +384,28 @@ function PizzaSlice() {
   return (
     <section id="pizza-slice" className="px-6 py-24 lg:px-10">
       <div className="mx-auto max-w-[1240px]">
-        <div className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="grid items-start gap-14 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <p className="eyebrow">Live playable</p>
             <h2 className="section-title mt-5">Six levels.<br /><em>One high score.</em></h2>
             <p className="mt-7 max-w-md leading-7 text-[#102832]/65">Pizza Slice turns a swipe into a monthly promotion. Players climb six levels, chase the best score, and challenge friends on the channels they already use.</p>
             <a href={pizzaPlayUrl} className="mt-8 inline-block rounded-full bg-[#f76f5f] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(247,111,95,0.24)] transition-transform hover:-translate-y-0.5 hover:bg-[#e95d4d]">Play Pizza Slice <Play className="ml-1 inline h-4 w-4 fill-current" /></a>
           </div>
-          <div className="grid gap-4 sm:grid-cols-[1.4fr_0.8fr]">
-            <video
-              ref={gameplayRef}
-              className="h-full min-h-64 w-full overflow-hidden rounded-[2rem] object-cover shadow-xl"
-              src="/pizza-slice-gameplay.mov"
-              poster="/marketing/pizza-play.jpg"
-              muted
-              loop
-              playsInline
-              aria-label="Pizza Slice gameplay"
-            />
-            <div className="grid gap-4">
-              <img src="/marketing/pizza-score.jpg" alt="Pizza Slice high score screen, with a challenge to share the score" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
-              <img src="/marketing/pizza-order.jpg" alt="Pizza Slice gameplay showing a wrong-order penalty during a chicken and veggie ticket" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full" />
+          <div className="grid grid-cols-1 gap-4 sm:h-[28rem] sm:grid-cols-[1.4fr_0.8fr] sm:grid-rows-2 lg:h-[32rem]">
+            <div className="min-h-64 overflow-hidden rounded-[2rem] shadow-xl sm:row-span-2 sm:min-h-0">
+              <video
+                ref={gameplayRef}
+                className="h-full w-full object-cover"
+                src="/pizza-slice-gameplay.mov"
+                poster="/marketing/pizza-play.jpg"
+                muted
+                loop
+                playsInline
+                aria-label="Pizza Slice gameplay"
+              />
             </div>
+            <img src="/marketing/pizza-score.jpg" alt="Pizza Slice high score screen, with a challenge to share the score" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full sm:min-h-0" />
+            <img src="/marketing/pizza-order.jpg" alt="Pizza Slice gameplay showing a wrong-order penalty during a chicken and veggie ticket" className="h-40 w-full rounded-3xl object-cover shadow-lg sm:h-full sm:min-h-0" />
           </div>
         </div>
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-start">
