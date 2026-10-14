@@ -152,7 +152,25 @@ export function MarketingLanding() {
         </div>
       </section>
 
-      <section id="how-it-works" className="bg-[#dff2eb] px-6 py-24 lg:px-10"><div className="mx-auto max-w-[1240px]"><div className="flex flex-col justify-between gap-7 sm:flex-row sm:items-end"><div><p className="eyebrow">The ripple effect</p><h2 className="section-title mt-5 max-w-xl">Small plays.<br /><em>Big waves.</em></h2></div><p className="max-w-sm leading-7 text-[#102832]/65">A 30-second daily challenge can create a week of social momentum for your business.</p></div><div className="mt-16 grid gap-5 md:grid-cols-3"><Step num="01" title="Capture attention" text="Give people something fun to do, not another discount to ignore." /><Step num="02" title="Reward the return" text="Turn every visit into progress, status, and a reason to come back tomorrow." /><Step num="03" title="Let it travel" text="Players share their score. Their friends join. Your reach compounds." /></div></div></section>
+      <section id="how-it-works" className="relative overflow-hidden bg-[#dff2eb] px-6 py-24 lg:px-10">
+        <div aria-hidden="true" className="ocean-waves">
+          <div className="waves waves-back">
+            <svg viewBox="0 24 150 28" preserveAspectRatio="none">
+              <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+              </defs>
+              <use href="#gentle-wave" x="48" y="5" />
+              <use href="#gentle-wave" x="48" y="7" />
+            </svg>
+          </div>
+          <div className="waves waves-front">
+            <svg viewBox="0 24 150 28" preserveAspectRatio="none">
+              <use href="#gentle-wave" x="48" y="0" />
+              <use href="#gentle-wave" x="48" y="3" />
+            </svg>
+          </div>
+        </div>
+        <div className="relative z-10 mx-auto max-w-[1240px]"><div className="flex flex-col justify-between gap-7 sm:flex-row sm:items-end"><div><p className="eyebrow">The ripple effect</p><h2 className="section-title mt-5 max-w-xl">Small plays.<br /><em>Big waves.</em></h2></div><p className="max-w-sm leading-7 text-[#102832]/65">A 30-second daily challenge can create a week of social momentum for your business.</p></div><div className="mt-16 grid gap-5 md:grid-cols-3"><Step num="01" title="Capture attention" text="Give people something fun to do, not another discount to ignore." /><Step num="02" title="Reward the return" text="Turn every visit into progress, status, and a reason to come back tomorrow." /><Step num="03" title="Let it travel" text="Players share their score. Their friends join. Your reach compounds." /></div></div></section>
 
       <PizzaSlice />
 
