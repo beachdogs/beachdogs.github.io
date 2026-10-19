@@ -105,7 +105,7 @@ Static promotions get ignored. We build interactive campaigns that give people a
 
 ## Why playables
 
-![Core performance benchmarks comparing playable ads with traditional ads. Playable ads show a 15 to 30 percent engagement rate, up to 15 times higher than traditional ads, and a 5 to 7.8 percent conversion rate, over 3 times higher.](public/why-playables.jpg)
+Scroll-triggered interactive CVR sequence. Slide 1 asks “Which conversion metric do you want to drive?”, shows example cards, and waits for a click; unselected cards float away. Slide 2 keeps the chosen example and says playable ads can make a big impact. Then: peak count-up to 7.8%, side-by-side winner vs traditional, takeaway. Reduced motion jumps to the final takeaway.
 
 \* Sources: Metrics compiled from industry benchmarks by [AppSamurai](https://appsamurai.com/blog/creating-playable-ads/), [Playable Factory](https://playablefactory.com/blog/importance-of-playable-ads-for-non-gaming-companies), and [WordStream Industry Benchmarks](https://www.wordstream.com/blog/ws/2023/04/03/google-ads-benchmarks). Engagement is measured as opt-in interactive engagement (15+ seconds) vs. standard static display interactions.
 

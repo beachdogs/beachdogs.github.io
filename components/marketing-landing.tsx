@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type TransitionEvent } from 'react'
 import { ArrowUpRight, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
+import { WhyPlayablesSequence } from '@/components/why-playables-sequence'
 
 const mechanics = [
   {
@@ -147,7 +148,7 @@ export function MarketingLanding() {
 
       <section id="why-playables" className="px-6 pb-24 lg:px-10">
         <div className="mx-auto max-w-[1240px]">
-          <img src="/why-playables.jpg" alt="Core performance benchmarks comparing playable ads with traditional ads. Playable ads show a 15 to 30 percent engagement rate, up to 15 times higher than traditional ads, and a 5 to 7.8 percent conversion rate, over 3 times higher." className="w-full rounded-[2rem] shadow-xl" />
+          <WhyPlayablesSequence />
           <p className="mt-4 max-w-4xl text-[11px] leading-5 text-[#102832]/45">* Sources: Metrics compiled from industry benchmarks by <a href="https://appsamurai.com/blog/creating-playable-ads/" target="_blank" rel="noopener noreferrer" className="underline">AppSamurai</a>, <a href="https://playablefactory.com/blog/importance-of-playable-ads-for-non-gaming-companies" target="_blank" rel="noopener noreferrer" className="underline">Playable Factory</a>, and <a href="https://www.wordstream.com/blog/ws/2023/04/03/google-ads-benchmarks" target="_blank" rel="noopener noreferrer" className="underline">WordStream Industry Benchmarks</a>. Engagement is measured as opt-in interactive engagement (15+ seconds) vs. standard static display interactions.</p>
         </div>
       </section>
@@ -459,7 +460,7 @@ function shufflePlayables<T>(items: T[]) {
 }
 
 function PlayableGallery() {
-  const [playables] = useState(() => shufflePlayables(galleryPlayables))
+  const [playables, setPlayables] = useState(galleryPlayables)
   const count = playables.length
   const cloneCount = 3
   const slides = [...playables.slice(-cloneCount), ...playables, ...playables.slice(0, cloneCount)]
@@ -478,6 +479,10 @@ function PlayableGallery() {
   const positionRef = useRef(position)
 
   positionRef.current = position
+
+  useEffect(() => {
+    setPlayables(shufflePlayables(galleryPlayables))
+  }, [])
 
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
