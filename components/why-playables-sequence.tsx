@@ -369,14 +369,16 @@ function SolutionStep({ selectedMetric }: { selectedMetric: MetricId | null }) {
         <div className="why-solution-copy">
           <p className="why-title-sm">
             This is where playable ads for non-gaming companies can make a{' '}
-            <em className="why-burst-words">
-              big impact.
-              <span className="why-burst-ring" aria-hidden="true" />
-              <span className="why-burst-ring why-burst-ring-b" aria-hidden="true" />
-              <span className="why-burst-spark" aria-hidden="true" />
-              <span className="why-burst-spark why-burst-spark-b" aria-hidden="true" />
-              <span className="why-burst-spark why-burst-spark-c" aria-hidden="true" />
-            </em>
+            <span className="why-burst-anchor">
+              <em className="why-burst-words">
+                big impact.
+                <span className="why-burst-ring" aria-hidden="true" />
+                <span className="why-burst-ring why-burst-ring-b" aria-hidden="true" />
+                <span className="why-burst-spark" aria-hidden="true" />
+                <span className="why-burst-spark why-burst-spark-b" aria-hidden="true" />
+                <span className="why-burst-spark why-burst-spark-c" aria-hidden="true" />
+              </em>
+            </span>
           </p>
         </div>
       </div>
@@ -384,28 +386,30 @@ function SolutionStep({ selectedMetric }: { selectedMetric: MetricId | null }) {
   )
 }
 
-function ShopperFigure() {
+function ShopperFigure({ hasBag = true }: { hasBag?: boolean }) {
   return (
     <g className="why-shopper-figure" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
       <g className="why-shopper-bob">
         <circle cx="0" cy="-22" r="4.2" fill="currentColor" stroke="none" />
         <path d="M0 -17v9" strokeWidth="2.3" />
-        {/* free arm */}
         <path className="why-shopper-arm-free" d="M0 -14l-5.5 5" strokeWidth="2" />
-        {/* bag arm + bag */}
-        <g className="why-shopper-bag-arm">
-          <path d="M0 -14l5.2 4.5" strokeWidth="2" />
-          <g className="why-shopper-bag">
-            <path d="M5.8 -10.2v2.2" strokeWidth="1.5" />
-            <path
-              d="M3.2 -8h5.2l0.65 7.6H2.55z"
-              fill="currentColor"
-              fillOpacity="0.22"
-              strokeWidth="1.5"
-            />
-            <path d="M4.4 -8c0-1.5 0.85-2.35 1.4-2.35S7.2 -9.5 7.2 -8" strokeWidth="1.35" />
+        {hasBag ? (
+          <g className="why-shopper-bag-arm">
+            <path d="M0 -14l5.2 4.5" strokeWidth="2" />
+            <g className="why-shopper-bag">
+              <path d="M5.8 -10.2v2.2" strokeWidth="1.5" />
+              <path
+                d="M3.2 -8h5.2l0.65 7.6H2.55z"
+                fill="currentColor"
+                fillOpacity="0.22"
+                strokeWidth="1.5"
+              />
+              <path d="M4.4 -8c0-1.5 0.85-2.35 1.4-2.35S7.2 -9.5 7.2 -8" strokeWidth="1.35" />
+            </g>
           </g>
-        </g>
+        ) : (
+          <path className="why-shopper-arm-alt" d="M0 -14l5.2 4.5" strokeWidth="2" />
+        )}
         <path className="why-shopper-leg-a" d="M0 -7v14" strokeWidth="2.3" />
         <path className="why-shopper-leg-b" d="M0 -7v14" strokeWidth="2.3" />
       </g>
@@ -413,10 +417,9 @@ function ShopperFigure() {
   )
 }
 
-function CyclistFigure() {
+function CyclistFigure({ hasBag = true }: { hasBag?: boolean }) {
   return (
     <g className="why-cyclist-figure" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {/* bike */}
       <g className="why-cyclist-bike">
         <g className="why-cyclist-wheel why-cyclist-wheel-r">
           <circle cx="11" cy="-7" r="6.2" strokeWidth="1.6" />
@@ -429,29 +432,48 @@ function CyclistFigure() {
         <path d="M-11 -7l8 -9h7l7 9M-3 -16l4 6M4 -16v5" strokeWidth="1.7" />
         <path d="M-1 -10h8" strokeWidth="1.5" />
       </g>
-      {/* rider */}
       <g className="why-cyclist-rider">
         <circle cx="1" cy="-28" r="3.6" fill="currentColor" stroke="none" />
         <path d="M1 -24l2 8h-5z" fill="currentColor" fillOpacity="0.2" strokeWidth="1.6" />
         <path d="M1 -23l-4 6M1 -20l5 3" strokeWidth="1.7" />
         <path className="why-cyclist-pedal-a" d="M1 -15l-4 6" strokeWidth="1.7" />
         <path className="why-cyclist-pedal-b" d="M1 -15l4 5" strokeWidth="1.7" />
-        {/* one shopping bag on rear rack */}
-        <g className="why-cyclist-bag">
-          <path d="M8 -18v2" strokeWidth="1.3" />
-          <path
-            d="M5.8 -16h4.4l0.5 5.8H5.3z"
-            fill="currentColor"
-            fillOpacity="0.22"
-            strokeWidth="1.3"
-          />
-        </g>
+        {hasBag ? (
+          <g className="why-cyclist-bag">
+            <path d="M8 -18v2" strokeWidth="1.3" />
+            <path
+              d="M5.8 -16h4.4l0.5 5.8H5.3z"
+              fill="currentColor"
+              fillOpacity="0.22"
+              strokeWidth="1.3"
+            />
+          </g>
+        ) : null}
       </g>
     </g>
   )
 }
 
+const walkerClasses = [
+  'why-shopper-cafe-in',
+  'why-shopper-cafe-out',
+  'why-shopper-bistro-in',
+  'why-shopper-bistro-out',
+  'why-shopper-shop-in',
+  'why-shopper-shop-out',
+  'why-shopper-market-in',
+  'why-shopper-market-out',
+  'why-shopper-stroll',
+] as const
+
+const cyclistClasses = ['why-cyclist-cafe', 'why-cyclist-shop', 'why-cyclist-pass'] as const
+
 function LocalShoppers() {
+  const [bagFlags] = useState(() => ({
+    walkers: walkerClasses.map(() => Math.random() > 0.38),
+    cyclists: cyclistClasses.map(() => Math.random() > 0.45),
+  }))
+
   return (
     <svg
       className="why-local-shoppers"
@@ -459,42 +481,16 @@ function LocalShoppers() {
       preserveAspectRatio="xMidYMax meet"
       aria-hidden="true"
     >
-      <g className="why-shopper why-shopper-cafe-in">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-cafe-out">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-bistro-in">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-bistro-out">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-shop-in">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-shop-out">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-market-in">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-market-out">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-shopper-stroll">
-        <ShopperFigure />
-      </g>
-      <g className="why-shopper why-cyclist why-cyclist-cafe">
-        <CyclistFigure />
-      </g>
-      <g className="why-shopper why-cyclist why-cyclist-shop">
-        <CyclistFigure />
-      </g>
-      <g className="why-shopper why-cyclist why-cyclist-pass">
-        <CyclistFigure />
-      </g>
+      {walkerClasses.map((className, index) => (
+        <g key={className} className={`why-shopper ${className}`}>
+          <ShopperFigure hasBag={bagFlags.walkers[index]} />
+        </g>
+      ))}
+      {cyclistClasses.map((className, index) => (
+        <g key={className} className={`why-shopper why-cyclist ${className}`}>
+          <CyclistFigure hasBag={bagFlags.cyclists[index]} />
+        </g>
+      ))}
     </svg>
   )
 }
@@ -623,15 +619,21 @@ function TakeawayStep({ selectedMetric }: { selectedMetric: MetricId | null }) {
 const peakStats = [
   {
     figure: '32%',
-    text: 'more memorable compared to video and static ads',
+    before: '',
+    highlight: 'more memorable',
+    after: ' compared to video and static ads',
   },
   {
     figure: '47%',
-    text: 'longer attention compared to video ads',
+    before: '',
+    highlight: 'longer attention',
+    after: ' compared to video ads',
   },
   {
     figure: '3×',
-    text: 'higher conversion rates than traditional video ads for non-gaming companies',
+    before: 'higher ',
+    highlight: 'conversion rates',
+    after: ' than traditional video ads for non-gaming companies',
   },
 ] as const
 
@@ -662,7 +664,20 @@ function PeakStep() {
         <p className="why-metric-3d-wrap">
           <span className="why-metric-range why-glow why-metric-3d">{stat.figure}</span>
         </p>
-        <p className="why-lift why-peak-stat-text">{stat.text}</p>
+        <p className="why-lift why-peak-stat-text">
+          {stat.before}
+          <span className="why-peak-flash">
+            {stat.highlight}
+            <span className="why-peak-flash-sparks" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </span>
+          </span>
+          {stat.after}
+        </p>
       </div>
       <p className="why-peak-source">
         Source:{' '}

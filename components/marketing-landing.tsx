@@ -146,13 +146,6 @@ export function MarketingLanding() {
 
       <section id="solutions" className="relative mx-auto max-w-[1240px] px-6 py-24 lg:px-10 lg:py-32"><div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="eyebrow">The playbook</p><h2 className="section-title mt-5">Your best<br /><em>marketing</em><br />should feel<br />like a game.</h2><p className="mt-7 max-w-sm leading-7 text-[#102832]/65">Static promotions get ignored. We build interactive campaigns that give people a reason to come back, bring friends, and buy now.</p><a href="#contact" className="mt-8 inline-block text-sm font-bold underline decoration-[#f76f5f] decoration-2 underline-offset-4">Find your growth engine <ArrowUpRight className="ml-1 inline h-4 w-4" /></a></div><div ref={playbookRef} className={`playbook grid gap-3 ${playbookInView ? 'is-live' : ''}`}>{mechanics.map((item, index) => { const Icon = item.icon; const open = activeMechanic === index; return <button key={item.number} onClick={() => setActiveMechanic(index)} aria-expanded={open} className={`playbook-item group text-left ${open ? 'is-open rounded-3xl bg-[#eaf3ee] p-5 sm:p-6' : 'border-b border-[#102832]/10 px-1 py-5'}`}><div className="flex items-start gap-4"><span className="pt-1 font-mono text-xs text-[#102832]/40">{item.number}</span><div className="flex-1"><div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-bold">{item.title}</h3><span className={`rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${open ? 'bg-[#f76f5f] text-white' : 'bg-[#102832]/[0.06] text-[#102832]/55'}`}>{item.tag}</span></div><div className="playbook-copy"><div className="playbook-copy-inner"><p className="mt-3 max-w-lg leading-7 text-[#102832]/65">{item.description}</p></div></div></div><Icon className={`playbook-icon mt-1 h-5 w-5 shrink-0 ${open ? 'text-[#f76f5f]' : 'text-[#102832]/25 group-hover:text-[#f76f5f]'}`} /></div></button> })}</div></div></section>
 
-      <section id="why-playables" className="px-6 pb-24 lg:px-10">
-        <div className="mx-auto max-w-[1240px]">
-          <WhyPlayablesSequence />
-          <p className="mt-4 max-w-4xl text-[11px] leading-5 text-[#102832]/45">* Sources: Metrics compiled from industry benchmarks by <a href="https://appsamurai.com/blog/creating-playable-ads/" target="_blank" rel="noopener noreferrer" className="underline">AppSamurai</a>, <a href="https://playablefactory.com/blog/importance-of-playable-ads-for-non-gaming-companies" target="_blank" rel="noopener noreferrer" className="underline">Playable Factory</a>, and <a href="https://www.wordstream.com/blog/ws/2023/04/03/google-ads-benchmarks" target="_blank" rel="noopener noreferrer" className="underline">WordStream Industry Benchmarks</a>. Engagement is measured as opt-in interactive engagement (15+ seconds) vs. standard static display interactions.</p>
-        </div>
-      </section>
-
       <section id="how-it-works" className="relative overflow-hidden bg-[#dff2eb] px-6 py-24 lg:px-10">
         <div aria-hidden="true" className="ocean-waves">
           <div className="waves waves-back">
@@ -219,30 +212,19 @@ const useCases = [
 const deliverables = [
   {
     title: 'Custom Interactive Build',
-    text: 'Design and technical setup of a branded HTML5 playable ad experience (mobile-optimized).',
+    text: 'Design and technical setup of a branded HTML5 playable experience (mobile-optimized), trivia quiz, or interactive configurators for scaling customer engagement and lead generation.',
   },
   {
     title: 'Lead-Capture Integration',
-    text: 'High-converting end card with automated SMS/Email coupon delivery (via Mailchimp, Klaviyo, or Zapier).',
+    text: 'High-converting end card with automated SMS/email coupon delivery. Coupon delivery and customizable high score board. Notify the winner (and losers) when a high score is beat.',
   },
   {
     title: 'Ad Campaign Management',
-    text: 'Targeting, setup, and optimization across Nextdoor, Meta (Facebook/Instagram) and TikTok.',
+    text: 'Targeting, setup, and optimization across Nextdoor, Meta (Facebook/Instagram) and TikTok. We can work within your budget, leveraging local distribution channels for free.',
   },
   {
     title: 'Performance Tracking',
-    text: 'Real-time analytics dashboard monitoring plays, opt-ins, and redemption metrics.',
-  },
-]
-
-const advantages = [
-  {
-    title: 'Increased Engagement',
-    text: 'Playable ads are 32% more memorable compared to video and static ads, and have 47% longer attention compared to video ads. By providing an interactive and immersive experience, playable ads create excitement and curiosity, which leads to higher engagement rates and more time spent interacting.',
-  },
-  {
-    title: 'Better Conversion Rates',
-    text: 'Playable ads have 3 times higher conversion rates than traditional video ads, and are 46% more effective compared to other ads. By allowing users to experience a brand’s product or service firsthand, playable ads can help to build trust and confidence in the brand. This can make users more likely to make a purchase or take some other desired action.',
+    text: 'Real-time analytics dashboard monitoring plays, opt-ins, and redemption metrics. Monthly playable optimization analysis and variation testing based on experience.',
   },
 ]
 
@@ -263,18 +245,14 @@ function UseCases() {
       <img src="/Gemini_Generated_discounts-and-win-codes-diagram.jpg" alt="Shop and dine local spin-to-win wheel outside Local Grind and Local Eats, with scratch-and-win, 25% off, and win-prize cards that reveal local discount codes for restaurants and retail." className="mt-10 w-full rounded-[2rem] shadow-xl" />
 
       <h2 className="section-title mt-24 max-w-4xl">Playables offer <em>big advantages</em> for non-gaming companies.</h2>
-      <p className="mt-7 max-w-3xl text-lg leading-8 text-[#102832]/70">For a small business, the best distribution platform for reaching their customers is viral social media that users voluntarily interact and engage to achieve high score unlocked promotional discounts. This means your barrier to advertising is zero cost.</p>
-      <div className="mt-12 grid gap-5 md:grid-cols-2">
-        {advantages.map((item) => (
-          <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
-            <h3 className="text-xl font-bold">{item.title}</h3>
-            <p className="mt-3 leading-7 text-[#102832]/65">{item.text}</p>
-          </div>
-        ))}
+      <p className="mt-7 max-w-3xl text-lg leading-8 text-[#102832]/70">The best distribution platform for reaching small business customers is viral social media where users voluntarily interact and engage to win the high score and unlock promotional discounts.</p>
+
+      <div id="why-playables" className="mt-12">
+        <WhyPlayablesSequence />
+        <p className="mt-4 max-w-4xl text-[11px] leading-5 text-[#102832]/45">* Sources: Metrics compiled from industry benchmarks by <a href="https://appsamurai.com/blog/creating-playable-ads/" target="_blank" rel="noopener noreferrer" className="underline">AppSamurai</a>, <a href="https://playablefactory.com/blog/importance-of-playable-ads-for-non-gaming-companies" target="_blank" rel="noopener noreferrer" className="underline">Playable Factory</a>, and <a href="https://www.wordstream.com/blog/ws/2023/04/03/google-ads-benchmarks" target="_blank" rel="noopener noreferrer" className="underline">WordStream Industry Benchmarks</a>. Engagement is measured as opt-in interactive engagement (15+ seconds) vs. standard static display interactions.</p>
       </div>
 
-      <img src="/Gemini_Generated_interactive-quizzes-diagram.jpg" alt="Lead generation flooring quiz covering rooms, style, and usage, then a captured user profile and a flooring recommendation that books a consultation." className="mt-24 w-full rounded-[2rem] shadow-xl" />
-      <h2 className="section-title mt-10 max-w-3xl">Campaign <em>deliverables.</em></h2>
+      <h2 className="section-title mt-24 max-w-3xl">Campaign <em>deliverables.</em></h2>
       <div className="mt-16 grid gap-5 md:grid-cols-2">
         {deliverables.map((item, index) => (
           <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
