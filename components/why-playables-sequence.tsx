@@ -736,21 +736,38 @@ export function WhyPlayablesSequence() {
   const [step, setStep] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [selectedMetric, setSelectedMetric] = useState<MetricId | null>(null)
+  const [sequenceKey, setSequenceKey] = useState(0)
   const reducedMotion = useRef(false)
+  const wasInView = useRef(false)
 
   useEffect(() => {
     reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const node = stageRef.current
     if (!node) return
+
+    const restartSequence = () => {
+      if (reducedMotion.current) {
+        setSelectedMetric('Purchase')
+        setStep(steps.length - 1)
+        setPlaying(true)
+        return
+      }
+      setSelectedMetric(null)
+      setStep(0)
+      setPlaying(true)
+      setSequenceKey((key) => key + 1)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return
-        if (reducedMotion.current) {
-          setSelectedMetric('Purchase')
-          setStep(steps.length - 1)
+        if (entry.isIntersecting) {
+          if (wasInView.current) return
+          wasInView.current = true
+          restartSequence()
+          return
         }
-        setPlaying(true)
-        observer.disconnect()
+        wasInView.current = false
+        setPlaying(false)
       },
       { threshold: 0.4 },
     )
@@ -796,6 +813,7 @@ export function WhyPlayablesSequence() {
     <div ref={stageRef} className="why-sequence overflow-hidden rounded-[2rem] shadow-xl">
       <div className="why-stage">
         <StepPanel
+          key={sequenceKey}
           step={step}
           selectedMetric={selectedMetric}
           onSelectMetric={handleSelectMetric}

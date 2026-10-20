@@ -2,6 +2,12 @@
 
 import { useEffect, useRef, useState, type TransitionEvent } from 'react'
 import { ArrowUpRight, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
+import {
+  DemandKnob,
+  scaleGrowthPercent,
+  scaleLeaderboardPoints,
+  scalePlayersToday,
+} from '@/components/demand-knob'
 import { WhyPlayablesSequence } from '@/components/why-playables-sequence'
 
 const mechanics = [
@@ -46,21 +52,27 @@ const navItems = [
 ]
 
 const initialPlayers = [
-  ['01', 'Maya R.', '12,480 pts', 'gold'],
-  ['02', 'The Coffee Club', '11,920 pts', 'silver'],
-  ['03', 'Jake’s Bikes', '9,840 pts', 'bronze'],
-  ['04', 'Rosa’s Kitchen', '8,210 pts', 'plain'],
+  { rank: '01', name: 'Maya R.', basePoints: 12480, medal: 'gold' },
+  { rank: '02', name: 'The Coffee Club', basePoints: 11920, medal: 'silver' },
+  { rank: '03', name: 'Jake’s Bikes', basePoints: 9840, medal: 'bronze' },
+  { rank: '04', name: 'Rosa’s Kitchen', basePoints: 8210, medal: 'plain' },
 ]
 
 export function MarketingLanding() {
   const [activeMechanic, setActiveMechanic] = useState(0)
   const [played, setPlayed] = useState(false)
+  const [demand, setDemand] = useState(0.35)
+  const [knobUserControlled, setKnobUserControlled] = useState(false)
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const [activeNav, setActiveNav] = useState(0)
   const [playbookInView, setPlaybookInView] = useState(false)
   const playbookRef = useRef<HTMLDivElement>(null)
+
+  const playersToday = scalePlayersToday(demand)
+  const growthPercent = scaleGrowthPercent(demand)
+  const demandHot = demand > 0.7
 
   useEffect(() => {
     const timer = window.setTimeout(() => setNavOpen(true), 350)
@@ -130,13 +142,67 @@ export function MarketingLanding() {
         </div>
         <div className="relative mx-auto w-full max-w-[500px]" id="demo">
           <div className="absolute -right-4 -top-7 z-20 rotate-6 rounded-2xl bg-[#f4c55e] px-4 py-3 font-mono text-xs font-bold shadow-lg">YOUR NEXT<br />REGULAR IS HERE ↘</div>
-          <div className="rounded-[28px] border border-[#102832]/10 bg-[#173842] p-4 shadow-[0_24px_60px_rgba(16,40,50,0.2)] sm:p-5">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 text-white"><div><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#76e1d3]">Live campaign</p><h2 className="mt-1 text-xl font-bold">Sunset Sips Showdown</h2></div><span className="rounded-full bg-[#f76f5f] px-3 py-1 text-[10px] font-bold uppercase">Live</span></div>
-            <div className="mt-5 rounded-2xl bg-[#224c56] p-5 text-white"><div className="flex items-center justify-between text-xs text-white/60"><span>Daily speed run</span><span className="font-mono text-[#f4c55e]">00:14:22</span></div><div className="mt-5 flex items-center justify-center"><button aria-label="Play campaign demo" onClick={() => setPlayed(!played)} className={`relative flex h-36 w-36 items-center justify-center rounded-full border-2 border-dashed border-[#76e1d3] transition-transform ${played ? 'scale-105 bg-[#f76f5f]' : 'bg-[#173842] hover:scale-105'}`}><span className="absolute inset-3 rounded-full border border-white/10" /><span className="font-display text-4xl font-bold">{played ? '42' : 'GO'}</span></button></div><p className="mt-4 text-center text-xs text-white/55">{played ? 'Nice! You just earned 840 points.' : 'Tap to see how fast your customers play.'}</p></div>
-            <div className="mt-4 flex items-center justify-between px-1 text-xs text-white/45"><span>Top players today</span><span className="text-[#76e1d3]">View all →</span></div>
-            <div className="mt-2 space-y-2">{initialPlayers.slice(0, 3).map(([rank, name, points, medal]) => <div key={rank} className="flex items-center justify-between rounded-xl bg-white/[0.07] px-3 py-2.5 text-sm text-white"><span className="flex items-center gap-3"><span className={`rank ${medal}`}>{rank}</span><span>{name}</span></span><span className="font-mono text-xs text-[#f4c55e]">{points}</span></div>)}</div>
+          <div className={`campaign-card rounded-[28px] border border-[#102832]/10 bg-[#173842] p-4 shadow-[0_24px_60px_rgba(16,40,50,0.2)] sm:p-5${demandHot ? ' is-hot' : ''}`}>
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 text-white">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#76e1d3]">Live campaign</p>
+                <h2 className="mt-1 text-xl font-bold">Sunset Sips Showdown</h2>
+              </div>
+              <span className="live-pill rounded-full bg-[#f76f5f] px-3 py-1 text-[10px] font-bold uppercase transition-shadow">Live</span>
+            </div>
+            <div className="mt-5 rounded-2xl bg-[#224c56] p-5 text-white">
+              <div className="flex items-center justify-between text-xs text-white/60">
+                <span>Daily speed run</span>
+                <span className="font-mono text-[#f4c55e]">00:14:22</span>
+              </div>
+              <div className="mt-5 flex items-center justify-center">
+                <button
+                  aria-label="Play campaign demo"
+                  onClick={() => setPlayed(!played)}
+                  className={`relative flex h-36 w-36 items-center justify-center rounded-full border-2 border-dashed border-[#76e1d3] transition-transform ${played ? 'scale-105 bg-[#f76f5f]' : 'bg-[#173842] hover:scale-105'}`}
+                >
+                  <span className="absolute inset-3 rounded-full border border-white/10" />
+                  <span className="font-display text-4xl font-bold">{played ? '42' : 'GO'}</span>
+                </button>
+              </div>
+              <p className="mt-4 text-center text-xs text-white/55">
+                {played ? 'Nice! You just earned 840 points.' : 'Tap to see how fast your customers play.'}
+              </p>
+            </div>
+            <DemandKnob
+              demand={demand}
+              onDemandChange={setDemand}
+              userControlled={knobUserControlled}
+              onTakeControl={() => setKnobUserControlled(true)}
+            />
+            <div className="mt-4 flex items-center justify-between px-1 text-xs text-white/45">
+              <span>Top players today</span>
+              <span className="text-[#76e1d3]">View all →</span>
+            </div>
+            <div className="mt-2 space-y-2">
+              {initialPlayers.slice(0, 3).map((player) => {
+                const points = scaleLeaderboardPoints(player.basePoints, demand)
+                return (
+                  <div key={player.rank} className="flex items-center justify-between rounded-xl bg-white/[0.07] px-3 py-2.5 text-sm text-white">
+                    <span className="flex items-center gap-3">
+                      <span className={`rank ${player.medal}`}>{player.rank}</span>
+                      <span>{player.name}</span>
+                    </span>
+                    <span className="font-mono text-xs text-[#f4c55e] tabular-nums">
+                      {points.toLocaleString()} pts
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-          <div className="absolute -bottom-8 -left-8 hidden rotate-[-8deg] rounded-2xl border border-[#102832]/10 bg-white px-4 py-3 shadow-xl sm:block"><p className="font-mono text-[10px] uppercase tracking-wider text-[#102832]/50">Players today</p><p className="mt-1 text-2xl font-bold">2,841 <span className="text-sm text-[#f76f5f]">+18%</span></p></div>
+          <div className="absolute -bottom-8 -left-8 hidden rotate-[-8deg] rounded-2xl border border-[#102832]/10 bg-white px-4 py-3 shadow-xl sm:block">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-[#102832]/50">Players today</p>
+            <p className="players-today-count mt-1 text-2xl font-bold">
+              {playersToday.toLocaleString()}{' '}
+              <span className="text-sm text-[#f76f5f]">+{growthPercent}%</span>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -230,7 +296,7 @@ const deliverables = [
 
 function UseCases() {
   return (
-    <section id="use-cases" className="relative z-10 mx-auto max-w-[1240px] px-6 py-24 lg:px-10 lg:py-32">
+    <section id="use-cases" className="relative z-10 mx-auto max-w-[1240px] px-6 pb-24 pt-4 lg:px-10 lg:pb-32 lg:pt-6">
       <p className="eyebrow">Use cases</p>
       <h2 className="section-title mt-5 max-w-3xl">Key use cases for <em>small businesses.</em></h2>
       <div className="mt-16 grid gap-5 md:grid-cols-3">

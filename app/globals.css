@@ -245,6 +245,199 @@
   .rank.bronze { @apply bg-[#d99878] text-white; }
   .rank.plain { @apply bg-white/10 text-white/60; }
 
+  .demand-knob {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .demand-knob-copy {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .demand-knob-label {
+    margin: 0;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #76e1d3;
+  }
+
+  .demand-knob-readout {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    margin: 0.35rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .demand-knob-percent {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #f4c55e;
+  }
+
+  .demand-knob-hint {
+    margin: 0.35rem 0 0;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.5);
+    transition: opacity 0.35s ease, color 0.35s ease;
+  }
+
+  .demand-knob.is-demo .demand-knob-hint {
+    animation: demand-hint-pulse 2.4s ease-in-out infinite;
+  }
+
+  .demand-knob-hint.is-solid {
+    animation: none;
+    color: rgba(118, 225, 211, 0.75);
+  }
+
+  .demand-knob-dial {
+    position: relative;
+    flex-shrink: 0;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 9999px;
+    cursor: grab;
+    touch-action: none;
+    outline: none;
+    user-select: none;
+  }
+
+  .demand-knob-dial:active {
+    cursor: grabbing;
+  }
+
+  .demand-knob-dial:focus-visible {
+    box-shadow: 0 0 0 2px #173842, 0 0 0 4px #76e1d3;
+  }
+
+  .demand-knob-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(118, 225, 211, 0.18), transparent 55%),
+      linear-gradient(160deg, #2a5a66, #173842 62%);
+    border: 2px solid rgba(118, 225, 211, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .demand-knob.is-user .demand-knob-ring,
+  .campaign-card.is-hot .demand-knob-ring {
+    border-color: rgba(247, 111, 95, 0.45);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 0 18px rgba(247, 111, 95, 0.18);
+  }
+
+  .demand-knob-ticks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .demand-knob-tick {
+    position: absolute;
+    inset: 0;
+    transform: rotate(calc(-135deg + (var(--tick) * 27deg)));
+    pointer-events: none;
+  }
+
+  .demand-knob-tick::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    width: 2px;
+    height: 0.42rem;
+    margin-left: -1px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  .demand-knob-tick:nth-child(1)::before,
+  .demand-knob-tick:nth-child(6)::before,
+  .demand-knob-tick:nth-child(11)::before {
+    height: 0.55rem;
+    background: rgba(118, 225, 211, 0.7);
+  }
+
+  .demand-knob-needle {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: transform 0.05s linear;
+  }
+
+  .demand-knob-pointer {
+    position: absolute;
+    left: 50%;
+    top: 14%;
+    width: 3px;
+    height: 36%;
+    border-radius: 9999px 9999px 2px 2px;
+    background: linear-gradient(180deg, #f76f5f 0%, #76e1d3 100%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px rgba(247, 111, 95, 0.35);
+  }
+
+  .demand-knob-cap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 9999px;
+    background: #f8f6f0;
+    border: 2px solid #173842;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .campaign-card.is-hot .live-pill {
+    box-shadow: 0 0 16px rgba(247, 111, 95, 0.55);
+  }
+
+  .players-today-count {
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease;
+  }
+
+  @keyframes demand-hint-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demand-knob.is-demo .demand-knob-hint {
+      animation: none;
+    }
+
+    .demand-knob-needle {
+      transition: none;
+    }
+  }
+
   .nav-3d {
     display: flex;
     align-items: center;
@@ -960,7 +1153,7 @@
 
 .why-node-diagram {
   position: absolute;
-  inset: auto 6% 9%;
+  inset: auto 6% calc(9% + 20px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(0.45rem, 1.5vw, 0.9rem);
@@ -1491,7 +1684,7 @@
 @media (max-width: 640px) {
   .why-node-diagram {
     grid-template-columns: repeat(2, 1fr);
-    inset: auto 8% 10%;
+    inset: auto 8% calc(10% + 20px);
   }
 }
 
