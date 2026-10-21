@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type TransitionEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent, type TransitionEvent } from 'react'
 import { ArrowUpRight, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Flame, MousePointer2, Play, Share2, Sparkles, Trophy, Waves, Zap } from 'lucide-react'
 import {
   DemandKnob,
@@ -51,6 +51,8 @@ const navItems = [
   { href: '#results', label: 'Results', color: '#d89a12' },
 ]
 
+const CONTACT_SCRIPT_URL = process.env.NEXT_PUBLIC_CONTACT_SCRIPT_URL ?? ''
+
 const initialPlayers = [
   { rank: '01', name: 'Maya R.', basePoints: 12480, medal: 'gold' },
   { rank: '02', name: 'The Coffee Club', basePoints: 11920, medal: 'silver' },
@@ -64,7 +66,10 @@ export function MarketingLanding() {
   const [demand, setDemand] = useState(0.35)
   const [knobUserControlled, setKnobUserControlled] = useState(false)
   const [email, setEmail] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const [activeNav, setActiveNav] = useState(0)
   const [playbookInView, setPlaybookInView] = useState(false)
@@ -78,6 +83,44 @@ export function MarketingLanding() {
     const timer = window.setTimeout(() => setNavOpen(true), 350)
     return () => window.clearTimeout(timer)
   }, [])
+
+  async function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const trimmed = email.trim()
+    if (!trimmed) return
+
+    setSubmitError('')
+    setSubmitting(true)
+
+    if (honeypot.trim()) {
+      setSubmitted(true)
+      setSubmitting(false)
+      return
+    }
+
+    if (!CONTACT_SCRIPT_URL) {
+      setSubmitError('The contact form is not connected yet. Please email beachdogmarketing@gmail.com.')
+      setSubmitting(false)
+      return
+    }
+
+    try {
+      const response = await fetch(CONTACT_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ email: trimmed, honeypot: '' }),
+      })
+      const payload = (await response.json().catch(() => null)) as { ok?: boolean } | null
+      if (!response.ok || !payload?.ok) {
+        throw new Error('submit failed')
+      }
+      setSubmitted(true)
+    } catch {
+      setSubmitError('We could not send your request. Please try again or email beachdogmarketing@gmail.com.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   useEffect(() => {
     const node = playbookRef.current
@@ -236,7 +279,67 @@ export function MarketingLanding() {
 
       <PlayableGallery />
 
-      <section id="contact" className="contact-stage relative overflow-hidden bg-[#f76f5f] px-6 py-24 text-white lg:px-10 lg:py-28"><div aria-hidden="true" className="contact-ring contact-ring-back absolute -right-12 -top-24 h-80 w-80" /><div aria-hidden="true" className="contact-ring contact-ring-front absolute -bottom-36 left-1/3 h-72 w-72" /><div className="relative mx-auto flex max-w-[1240px] flex-col justify-between gap-12 lg:flex-row lg:items-end"><div><p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/70">Ready when you are</p><h2 className="mt-5 max-w-2xl font-display text-5xl font-semibold leading-[0.95] tracking-[-0.05em] sm:text-7xl">Let’s make<br /><em className="font-serif font-normal">some waves.</em></h2></div><div className="w-full max-w-md"><p className="mb-5 text-white/80">Tell us where you want to grow and we’ll send over a few campaign ideas made for your business.</p>{submitted ? <div className="rounded-2xl bg-white px-5 py-4 font-semibold text-[#102832]">You’re on the list. We’ll be in touch soon.</div> : <form onSubmit={(event) => { event.preventDefault(); if (email.trim()) setSubmitted(true) }} className="flex gap-2 rounded-full bg-white p-2"><label className="sr-only" htmlFor="email">Your email address</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email address" className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#102832] outline-none placeholder:text-[#102832]/45" /><button className="shrink-0 rounded-full bg-[#102832] px-5 py-3 text-sm font-bold text-white transition-transform hover:scale-105" type="submit">Get ideas <ArrowUpRight className="ml-1 inline h-4 w-4" /></button></form>}</div></div></section>
+            <section id="contact" className="contact-stage relative overflow-hidden bg-[#f76f5f] px-6 py-24 text-white lg:px-10 lg:py-28">
+        <div aria-hidden="true" className="contact-ring contact-ring-back absolute -right-12 -top-24 h-80 w-80" />
+        <div aria-hidden="true" className="contact-ring contact-ring-front absolute -bottom-36 left-1/3 h-72 w-72" />
+        <div className="relative mx-auto flex max-w-[1240px] flex-col justify-between gap-12 lg:flex-row lg:items-end">
+          <div>
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/70">Ready when you are</p>
+            <h2 className="mt-5 max-w-2xl font-display text-5xl font-semibold leading-[0.95] tracking-[-0.05em] sm:text-7xl">
+              Let’s make
+              <br />
+              <em className="font-serif font-normal">some waves.</em>
+            </h2>
+          </div>
+          <div className="w-full max-w-md">
+            <p className="mb-5 text-white/80">
+              Tell us where you want to grow and we’ll send over a few campaign ideas made for your business.
+            </p>
+            {submitted ? (
+              <div className="rounded-2xl bg-white px-5 py-4 font-semibold text-[#102832]">
+                You’re on the list. We’ll be in touch soon.
+              </div>
+            ) : (
+              <form onSubmit={handleContactSubmit} className="flex flex-col gap-3">
+                <div className="flex gap-2 rounded-full bg-white p-2">
+                  <label className="sr-only" htmlFor="email">
+                    Your email address
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="Your email address"
+                    disabled={submitting}
+                    className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#102832] outline-none placeholder:text-[#102832]/45 disabled:opacity-60"
+                  />
+                  <input
+                    type="text"
+                    name="company"
+                    value={honeypot}
+                    onChange={(event) => setHoneypot(event.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  />
+                  <button
+                    className="shrink-0 rounded-full bg-[#102832] px-5 py-3 text-sm font-bold text-white transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+                    type="submit"
+                    disabled={submitting}
+                  >
+                    {submitting ? 'Sending…' : 'Get ideas'}
+                    {!submitting ? <ArrowUpRight className="ml-1 inline h-4 w-4" /> : null}
+                  </button>
+                </div>
+                {submitError ? <p className="px-2 text-sm text-white/90">{submitError}</p> : null}
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
       <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10"><span>© 2026 Beach Dog Marketing</span><span>Made for local businesses with big energy.</span></footer>
     </main>
   )
@@ -308,7 +411,7 @@ function UseCases() {
           </div>
         ))}
       </div>
-      <img src="/Gemini_Generated_discounts-and-win-codes-diagram.jpg" alt="Shop and dine local spin-to-win wheel outside Local Grind and Local Eats, with scratch-and-win, 25% off, and win-prize cards that reveal local discount codes for restaurants and retail." className="mt-10 w-full rounded-[2rem] shadow-xl" />
+      <img src="/Gemini_Generated_Image_2jpr62jpr62jpr62.jpg" alt="Shop and dine local spin-to-win wheel outside Local Grind and Local Eats, with scratch-and-win, 25% off, and win-prize cards that reveal local discount codes for restaurants and retail." className="mt-10 -mx-6 w-[calc(100%+3rem)] max-w-none rounded-[2rem] shadow-xl lg:-mx-10 lg:w-[calc(100%+5rem)]" />
 
       <h2 className="section-title mt-24 max-w-4xl">Playables offer <em>big advantages</em> for non-gaming companies.</h2>
       <p className="mt-7 max-w-3xl text-lg leading-8 text-[#102832]/70">The best distribution platform for reaching small business customers is viral social media where users voluntarily interact and engage to win the high score and unlock promotional discounts.</p>

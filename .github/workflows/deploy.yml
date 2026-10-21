@@ -44,6 +44,7 @@ jobs:
         run: pnpm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
+          NEXT_PUBLIC_CONTACT_SCRIPT_URL: ${{ secrets.NEXT_PUBLIC_CONTACT_SCRIPT_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
