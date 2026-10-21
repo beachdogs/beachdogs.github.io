@@ -892,7 +892,7 @@ function PlayableGallery() {
           }}
         >
           {slides.map((playable, slide) => {
-            const near = inView && Math.abs(slide - position) <= 1
+            const near = inView && Math.abs(slide - position) <= 2
             return (
               <article key={`${playable.href}-${slide}`} className="shrink-0" style={{ width: cardWidth || '22%' }}>
                 <div className="relative overflow-hidden rounded-lg bg-[#102832] shadow-[0_16px_36px_rgba(16,40,50,0.14)]">
