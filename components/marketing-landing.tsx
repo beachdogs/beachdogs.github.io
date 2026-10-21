@@ -605,9 +605,14 @@ async function loadSilentPreview(frame: HTMLIFrameElement, href: string) {
   const response = await fetch(absolute.href)
   const html = await response.text()
   const baseHref = absolute.href.replace(/[^/]+$/, '')
-  const patched = /<head[^>]*>/i.test(html)
+  let patched = /<head[^>]*>/i.test(html)
     ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">${previewSilenceBootstrap}`)
     : `<head><base href="${baseHref}">${previewSilenceBootstrap}</head>${html}`
+  // Prefer absolute bridge URL inside srcdoc; keep behavior if the tag is already present.
+  patched = patched.replace(
+    /<script src="js\/code\.js"><\/script>(?:\s*<script src="[^"]*ga-bridge\.js"><\/script>)?/,
+    '<script src="js/code.js"></script><script src="/playables/ga-bridge.js"></script>',
+  )
   frame.srcdoc = patched
 }
 
