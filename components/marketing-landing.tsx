@@ -340,7 +340,7 @@ export function MarketingLanding() {
           </div>
         </div>
       </section>
-      <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10"><span>© 2026 Beach Dog Marketing</span><span>Made for local businesses with big energy.</span></footer>
+      <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10"><span>© 2026 Beach Dog Marketing</span><span>Rooted in Pacifica, CA. Made for local businesses with big energy.</span></footer>
     </main>
   )
 }
@@ -597,6 +597,57 @@ const galleryPlayables = [
 const gallerySlideMs = 1100
 const gallerySlideEase = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
+/** Injected at the top of <head> so Phaser/WebAudio is patched before playable scripts run. */
+const previewSilenceBootstrap = `<script>(function(){function silenceCtx(ctx){try{ctx.suspend()}catch(e){}ctx.resume=function(){try{return this.suspend()}catch(e){return Promise.resolve()}};}function wrap(key){var Orig=window[key];if(!Orig||Orig.__bdSilent)return;var Wrapped=new Proxy(Orig,{construct:function(Target,args){var ctx=Reflect.construct(Target,args);silenceCtx(ctx);return ctx;}});Wrapped.__bdSilent=true;try{Object.defineProperty(window,key,{configurable:true,writable:true,value:Wrapped});}catch(e){window[key]=Wrapped;}}wrap("AudioContext");wrap("webkitAudioContext");var play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){this.muted=true;this.volume=0;return play.apply(this,arguments);};})();</script>`
+
+async function loadSilentPreview(frame: HTMLIFrameElement, href: string) {
+  const absolute = new URL(href, window.location.href)
+  const response = await fetch(absolute.href)
+  const html = await response.text()
+  const baseHref = absolute.href.replace(/[^/]+$/, '')
+  const patched = /<head[^>]*>/i.test(html)
+    ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">${previewSilenceBootstrap}`)
+    : `<head><base href="${baseHref}">${previewSilenceBootstrap}</head>${html}`
+  frame.srcdoc = patched
+}
+
+function SilentPreviewFrame({
+  href,
+  title,
+  onReady,
+}: {
+  href: string
+  title: string
+  onReady?: (frame: HTMLIFrameElement) => void
+}) {
+  const frameRef = useRef<HTMLIFrameElement>(null)
+  const onReadyRef = useRef(onReady)
+  onReadyRef.current = onReady
+
+  useEffect(() => {
+    const frame = frameRef.current
+    if (!frame) return
+    let cancelled = false
+    void loadSilentPreview(frame, href).then(() => {
+      if (cancelled || !frameRef.current) return
+      onReadyRef.current?.(frameRef.current)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [href])
+
+  return (
+    <iframe
+      ref={frameRef}
+      title={title}
+      tabIndex={-1}
+      allow=""
+      className="pointer-events-none h-[234px] w-full border-0 sm:h-[312px] lg:h-[364px]"
+    />
+  )
+}
+
 function shufflePlayables<T>(items: T[]) {
   const next = [...items]
   for (let index = next.length - 1; index > 0; index -= 1) {
@@ -624,8 +675,23 @@ function PlayableGallery() {
   const wrappingRef = useRef(false)
   const animatingRef = useRef(false)
   const positionRef = useRef(position)
+  const preservedFocusRef = useRef<HTMLElement | null>(null)
 
   positionRef.current = position
+
+  function preserveExternalFocus() {
+    const active = document.activeElement
+    if (active instanceof HTMLElement && !frameRef.current?.contains(active)) {
+      preservedFocusRef.current = active
+    }
+  }
+
+  function restoreExternalFocus() {
+    const node = preservedFocusRef.current
+    if (!node || !document.contains(node)) return
+    if (document.activeElement === node) return
+    node.focus({ preventScroll: true })
+  }
 
   useEffect(() => {
     setPlayables(shufflePlayables(galleryPlayables))
@@ -675,6 +741,18 @@ function PlayableGallery() {
   }, [engaged, reduceMotion, inView])
 
   useEffect(() => {
+    if (!inView) return
+    const silence = () => {
+      frameRef.current?.querySelectorAll('iframe').forEach((frame) => {
+        silencePreview(frame as HTMLIFrameElement)
+      })
+    }
+    silence()
+    const timer = window.setInterval(silence, 500)
+    return () => window.clearInterval(timer)
+  }, [inView, position])
+
+  useEffect(() => {
     if (!reduceMotion) return
     const current = positionRef.current
     animatingRef.current = false
@@ -689,10 +767,12 @@ function PlayableGallery() {
   const activeTitle = playables[activeIndex].title
 
   function snapTo(realPosition: number) {
+    preserveExternalFocus()
     wrappingRef.current = true
     animatingRef.current = false
     setAnimate(false)
     setPosition(realPosition)
+    window.requestAnimationFrame(() => restoreExternalFocus())
   }
 
   function handleTrackTransitionEnd(event: TransitionEvent<HTMLDivElement>) {
@@ -700,15 +780,18 @@ function PlayableGallery() {
     if (wrappingRef.current) return
     const current = positionRef.current
     animatingRef.current = false
+    restoreExternalFocus()
     if (current > lastReal) snapTo(current - count)
     else if (current < firstReal) snapTo(current + count)
   }
 
   function show(next: number) {
     if (wrappingRef.current || animatingRef.current) return
+    preserveExternalFocus()
     animatingRef.current = true
     setAnimate(true)
     setPosition(next)
+    window.requestAnimationFrame(() => restoreExternalFocus())
   }
 
   function previous() {
@@ -719,15 +802,59 @@ function PlayableGallery() {
     show(positionRef.current + 1)
   }
 
-  function mutePreview(frame: HTMLIFrameElement) {
+  function silencePreview(frame: HTMLIFrameElement) {
     try {
-      frame.contentDocument?.querySelectorAll('audio, video').forEach((media) => {
+      const win = frame.contentWindow as (Window & {
+        Howler?: { mute: (value: boolean) => void; volume: (value: number) => void }
+        AudioContext?: typeof AudioContext
+        webkitAudioContext?: typeof AudioContext
+        __bdPreviewSilent?: boolean
+      }) | null
+      const doc = frame.contentDocument
+      if (!win || !doc) return
+
+      doc.querySelectorAll('audio, video').forEach((media) => {
         const clip = media as HTMLMediaElement
         clip.muted = true
-        clip.pause()
+        clip.volume = 0
+        clip.autoplay = false
+        try {
+          clip.pause()
+        } catch {
+          // Ignore media that cannot pause during teardown.
+        }
       })
+
+      if (win.Howler) {
+        win.Howler.mute(true)
+        win.Howler.volume(0)
+      }
+
+      if (!win.__bdPreviewSilent) {
+        win.__bdPreviewSilent = true
+        const mediaProto = (win as unknown as { HTMLMediaElement?: typeof HTMLMediaElement }).HTMLMediaElement
+          ?.prototype
+        if (mediaProto?.play) {
+          const originalPlay = mediaProto.play
+          mediaProto.play = function playMuted(this: HTMLMediaElement) {
+            this.muted = true
+            this.volume = 0
+            return originalPlay.apply(this)
+          }
+        }
+        const AudioCtx = win.AudioContext || win.webkitAudioContext
+        if (AudioCtx) {
+          AudioCtx.prototype.resume = function resumeMuted() {
+            void this.suspend()
+            return Promise.resolve()
+          }
+        }
+      }
+
+      frame.blur()
+      win.blur()
     } catch {
-      // The preview stays visible when the frame cannot be muted.
+      // Preview stays visible when the frame cannot be silenced.
     }
   }
 
@@ -760,17 +887,18 @@ function PlayableGallery() {
           }}
         >
           {slides.map((playable, slide) => {
-            const near = Math.abs(slide - position) <= 2
+            const near = inView && Math.abs(slide - position) <= 1
             return (
               <article key={`${playable.href}-${slide}`} className="shrink-0" style={{ width: cardWidth || '22%' }}>
                 <div className="relative overflow-hidden rounded-lg bg-[#102832] shadow-[0_16px_36px_rgba(16,40,50,0.14)]">
                   {near ? (
-                    <iframe
-                      src={playable.href}
+                    <SilentPreviewFrame
+                      href={playable.href}
                       title={playable.title}
-                      tabIndex={-1}
-                      onLoad={(event) => mutePreview(event.currentTarget)}
-                      className="pointer-events-none h-[234px] w-full border-0 sm:h-[312px] lg:h-[364px]"
+                      onReady={(frame) => {
+                        silencePreview(frame)
+                        restoreExternalFocus()
+                      }}
                     />
                   ) : (
                     <div className="h-[234px] w-full bg-[#173842] sm:h-[312px] lg:h-[364px]" />
@@ -789,7 +917,7 @@ function PlayableGallery() {
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
-      <p className="sr-only" aria-live="polite">{activeTitle}</p>
+      <p className="sr-only">{activeTitle}</p>
     </section>
   )
 }
