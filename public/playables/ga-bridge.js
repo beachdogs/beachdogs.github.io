@@ -1,14 +1,43 @@
 /**
- * Forwards playable genlog / log_remote funnel events to GA4.
+ * Playable analytics helpers:
+ * 1) Mute legacy MoPub S3 impression beacons (safe to load before code.js)
+ * 2) Forward genlog / log_remote to GA4 (load again after code.js)
  *
- * Set GA_MEASUREMENT_ID to your GA4 ID (G-XXXXXXXX) before deploy.
- * Include this script AFTER js/code.js on each playable page.
+ * Events include playable_id (ad_name) so GA4 can break down by creative,
+ * e.g. chocoborunner vs bb_tinyg vs bigbl_mysin.
  */
 ;(function () {
   var GA_MEASUREMENT_ID = 'G-40W6H7KQS2'
 
-  if (window.__bdGaBridge) return
-  window.__bdGaBridge = true
+  muteS3ImpressionBeacons()
+  wrapPlayableLogging()
+
+  function muteS3ImpressionBeacons() {
+    if (window.__bdS3Muted) return
+    window.__bdS3Muted = true
+
+    // doorman() sets new Image().src to this host — block it.
+    var descriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src')
+    if (descriptor && descriptor.set) {
+      Object.defineProperty(HTMLImageElement.prototype, 'src', {
+        configurable: true,
+        enumerable: descriptor.enumerable,
+        get: descriptor.get,
+        set: function (value) {
+          if (typeof value === 'string' && value.indexOf('s3.amazonaws.com/impressions') !== -1) {
+            return
+          }
+          return descriptor.set.call(this, value)
+        },
+      })
+    }
+
+    // Also no-op doorman if this file loads after code.js defines it.
+    if (typeof window.doorman === 'function' && !window.doorman.__bdMuted) {
+      window.doorman = function () {}
+      window.doorman.__bdMuted = true
+    }
+  }
 
   function ensureGtag() {
     if (!GA_MEASUREMENT_ID) return false
@@ -32,11 +61,17 @@
     return typeof window.ad_name === 'string' && window.ad_name ? window.ad_name : 'unknown'
   }
 
+  function playableTitle() {
+    return typeof window.ad_title === 'string' && window.ad_title ? window.ad_title : playableId()
+  }
+
   function sendGa(eventName, detail) {
     if (!ensureGtag()) return
+    // Custom params playable_id / playable_title let you segment each creative in GA4.
     window.gtag('event', String(eventName || 'playable_event'), {
       event_category: 'playable',
       playable_id: playableId(),
+      playable_title: playableTitle(),
       detail: detail == null ? '' : String(detail),
     })
   }
@@ -59,17 +94,24 @@
     window[name] = wrapped
   }
 
-  wrap('genlog', function (args) {
-    return {
-      eventName: args[0],
-      detail: args[1],
-    }
-  })
+  function wrapPlayableLogging() {
+    wrap('genlog', function (args) {
+      return {
+        eventName: args[0],
+        detail: args[1],
+      }
+    })
 
-  wrap('log_remote', function (args) {
-    return {
-      eventName: 'playable_remote',
-      detail: String(args[0] || '') + ':' + String(args[1] == null ? '' : args[1]),
+    wrap('log_remote', function (args) {
+      return {
+        eventName: 'playable_remote',
+        detail: String(args[0] || '') + ':' + String(args[1] == null ? '' : args[1]),
+      }
+    })
+
+    if (typeof window.doorman === 'function' && !window.doorman.__bdMuted) {
+      window.doorman = function () {}
+      window.doorman.__bdMuted = true
     }
-  })
+  }
 })()

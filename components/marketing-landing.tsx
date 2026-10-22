@@ -598,7 +598,7 @@ const gallerySlideMs = 1100
 const gallerySlideEase = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
 /** Injected at the top of <head> so Phaser/WebAudio is patched before playable scripts run. */
-const previewSilenceBootstrap = `<script>(function(){function silenceCtx(ctx){try{ctx.suspend()}catch(e){}ctx.resume=function(){try{return this.suspend()}catch(e){return Promise.resolve()}};}function wrap(key){var Orig=window[key];if(!Orig||Orig.__bdSilent)return;var Wrapped=new Proxy(Orig,{construct:function(Target,args){var ctx=Reflect.construct(Target,args);silenceCtx(ctx);return ctx;}});Wrapped.__bdSilent=true;try{Object.defineProperty(window,key,{configurable:true,writable:true,value:Wrapped});}catch(e){window[key]=Wrapped;}}wrap("AudioContext");wrap("webkitAudioContext");var play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){this.muted=true;this.volume=0;return play.apply(this,arguments);};})();</script>`
+const previewSilenceBootstrap = `<script>(function(){function silenceCtx(ctx){try{ctx.suspend()}catch(e){}ctx.resume=function(){try{return this.suspend()}catch(e){return Promise.resolve()}};}function wrap(key){var Orig=window[key];if(!Orig||Orig.__bdSilent)return;var Wrapped=new Proxy(Orig,{construct:function(Target,args){var ctx=Reflect.construct(Target,args);silenceCtx(ctx);return ctx;}});Wrapped.__bdSilent=true;try{Object.defineProperty(window,key,{configurable:true,writable:true,value:Wrapped});}catch(e){window[key]=Wrapped;}}wrap("AudioContext");wrap("webkitAudioContext");var play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){this.muted=true;this.volume=0;return play.apply(this,arguments);};if(!window.__bdS3Muted){window.__bdS3Muted=true;var desc=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");if(desc&&desc.set){Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:desc.enumerable,get:desc.get,set:function(value){if(typeof value==="string"&&value.indexOf("s3.amazonaws.com/impressions")!==-1)return;return desc.set.call(this,value);}});}}})();</script>`
 
 async function loadSilentPreview(frame: HTMLIFrameElement, href: string) {
   const absolute = new URL(href, window.location.href)
@@ -608,10 +608,10 @@ async function loadSilentPreview(frame: HTMLIFrameElement, href: string) {
   let patched = /<head[^>]*>/i.test(html)
     ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">${previewSilenceBootstrap}`)
     : `<head><base href="${baseHref}">${previewSilenceBootstrap}</head>${html}`
-  // Prefer absolute bridge URL inside srcdoc; keep behavior if the tag is already present.
+  // Bridge before code.js mutes S3; after wraps genlog. Absolute URL for srcdoc.
   patched = patched.replace(
-    /<script src="js\/code\.js"><\/script>(?:\s*<script src="[^"]*ga-bridge\.js"><\/script>)?/,
-    '<script src="js/code.js"></script><script src="/playables/ga-bridge.js"></script>',
+    /(?:<script src="[^"]*ga-bridge\.js"><\/script>\s*)?<script src="js\/code\.js"><\/script>(?:\s*<script src="[^"]*ga-bridge\.js"><\/script>)?/,
+    '<script src="/playables/ga-bridge.js"></script><script src="js/code.js"></script><script src="/playables/ga-bridge.js"></script>',
   )
   frame.srcdoc = patched
 }
