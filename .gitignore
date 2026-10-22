@@ -22,6 +22,9 @@
 .DS_Store
 *.pem
 
+# private print assets (personal contact / GotPrint uploads)
+/brand/business-card/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
