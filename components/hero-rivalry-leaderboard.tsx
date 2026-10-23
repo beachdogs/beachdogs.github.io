@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 type Player = {
   id: string
@@ -19,6 +19,11 @@ type Beat = {
   board: Player[]
   /** If set, a new #1 just claimed the crown — fire chat */
   chats?: ChatLine[]
+}
+
+type BubbleAnchor = {
+  left: number
+  top: number
 }
 
 const medals = ['gold', 'silver', 'bronze'] as const
@@ -86,7 +91,10 @@ export function HeroRivalryLeaderboard({ demand }: { demand: number }) {
   const [visibleChatCount, setVisibleChatCount] = useState(0)
   const [crownId, setCrownId] = useState<string | null>(null)
   const [flash, setFlash] = useState(false)
+  const [anchors, setAnchors] = useState<Record<string, BubbleAnchor>>({})
   const timers = useRef<number[]>([])
+  const boardRef = useRef<HTMLDivElement>(null)
+  const nameRefs = useRef<Map<string, HTMLElement>>(new Map())
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -148,6 +156,30 @@ export function HeroRivalryLeaderboard({ demand }: { demand: number }) {
     }
   }, [])
 
+  useLayoutEffect(() => {
+    const boardEl = boardRef.current
+    if (!boardEl) return
+
+    const measure = () => {
+      const boardBox = boardEl.getBoundingClientRect()
+      const next: Record<string, BubbleAnchor> = {}
+      for (const player of board) {
+        const nameEl = nameRefs.current.get(player.id)
+        if (!nameEl) continue
+        const box = nameEl.getBoundingClientRect()
+        next[player.id] = {
+          left: box.left - boardBox.left,
+          top: box.top - boardBox.top,
+        }
+      }
+      setAnchors(next)
+    }
+
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [board, crownId, flash])
+
   const factor = 0.75 + Math.min(1, Math.max(0, demand)) * 0.5
 
   const visibleChat = chat.slice(0, visibleChatCount)
@@ -163,14 +195,11 @@ export function HeroRivalryLeaderboard({ demand }: { demand: number }) {
         </span>
       </div>
 
-      <div className="rivalry-board" aria-live="polite">
+      <div className="rivalry-board" ref={boardRef} aria-live="polite">
         <div className="rivalry-rows space-y-2">
           {board.map((player, index) => {
             const points = Math.round(player.points * factor)
             const isCrown = crownId === player.id && index === 0
-            const playerLines = overlayChat
-              .map((line, chatIndex) => ({ line, chatIndex }))
-              .filter(({ line }) => line.fromId === player.id)
 
             return (
               <div
@@ -179,30 +208,16 @@ export function HeroRivalryLeaderboard({ demand }: { demand: number }) {
               >
                 <span className="rivalry-name flex min-w-0 items-center gap-3">
                   <span className={`rank ${medals[index] ?? 'plain'}`}>{String(index + 1).padStart(2, '0')}</span>
-                  <span className="truncate">{player.name}</span>
+                  <span
+                    className="truncate"
+                    ref={(node) => {
+                      if (node) nameRefs.current.set(player.id, node)
+                      else nameRefs.current.delete(player.id)
+                    }}
+                  >
+                    {player.name}
+                  </span>
                   {isCrown ? <span className="rivalry-crown-tag">Lead</span> : null}
-
-                  {playerLines.length > 0 ? (
-                    <span className="rivalry-chat">
-                      {playerLines.map(({ line, chatIndex }, localIndex) => {
-                        const isLeader = line.fromId === board[0]?.id
-                        const stack = playerLines.length - 1 - localIndex
-                        return (
-                          <span
-                            key={`${line.fromId}-${line.text}-${chatIndex}`}
-                            className={`rivalry-bubble${isLeader ? ' is-leader' : ' is-rival'}`}
-                            style={{
-                              zIndex: 10 + chatIndex,
-                              ['--rivalry-stack' as string]: stack,
-                            }}
-                          >
-                            <span className="rivalry-bubble-from">{playerLabel(line.fromId, board)}</span>
-                            <span className="rivalry-bubble-text">{line.text}</span>
-                          </span>
-                        )
-                      })}
-                    </span>
-                  ) : null}
                 </span>
                 <span className="shrink-0 font-mono text-xs text-[#f4c55e] tabular-nums">
                   {points.toLocaleString()} pts
@@ -211,6 +226,32 @@ export function HeroRivalryLeaderboard({ demand }: { demand: number }) {
             )
           })}
         </div>
+
+        {overlayChat.length > 0 ? (
+          <div className="rivalry-chat-layer">
+            {overlayChat.map((line, index) => {
+              const isLeader = line.fromId === board[0]?.id
+              const stack = overlayChat.length - 1 - index
+              const anchor = anchors[line.fromId]
+              if (!anchor) return null
+              return (
+                <div
+                  key={`${line.fromId}-${line.text}-${index}`}
+                  className={`rivalry-bubble${isLeader ? ' is-leader' : ' is-rival'}`}
+                  style={{
+                    left: anchor.left,
+                    top: anchor.top,
+                    zIndex: 10 + index,
+                    ['--rivalry-stack' as string]: stack,
+                  }}
+                >
+                  <span className="rivalry-bubble-from">{playerLabel(line.fromId, board)}</span>
+                  <span className="rivalry-bubble-text">{line.text}</span>
+                </div>
+              )
+            })}
+          </div>
+        ) : null}
       </div>
     </div>
   )

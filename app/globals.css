@@ -257,10 +257,15 @@
     font-size: 10px;
   }
 
-  /* Fixed footprint: bubbles float above each speaker’s name. */
+  /* Fixed footprint: bubbles float above names in a layer over the list. */
   .rivalry-board {
     position: relative;
     margin-top: 0.5rem;
+  }
+
+  .rivalry-rows {
+    position: relative;
+    z-index: 1;
   }
 
   .rivalry-row {
@@ -272,22 +277,18 @@
     position: relative;
   }
 
-  .rivalry-chat {
+  /* Always paints above leaderboard text / row chrome */
+  .rivalry-chat-layer {
     position: absolute;
-    left: 2.1rem; /* align under/over the name, after the rank badge */
-    bottom: calc(100% + 0.35rem);
-    z-index: 6;
-    width: max-content;
-    max-width: min(240px, 70vw);
-    height: 0;
+    inset: 0;
+    z-index: 40;
     pointer-events: none;
+    overflow: visible;
   }
 
   .rivalry-bubble {
     --rivalry-stack: 0;
     position: absolute;
-    left: 0;
-    bottom: 0;
     display: flex;
     flex-direction: column;
     gap: 0.12rem;
@@ -297,10 +298,10 @@
     border-radius: 0.85rem;
     box-shadow: 0 10px 28px rgba(16, 40, 50, 0.35);
     backdrop-filter: blur(8px);
-    /* Newer bubbles stack on top of older ones for this player. */
+    /* left/top set in JS to the player name; sit above it, newer on top */
     transform: translate(
       calc(var(--rivalry-stack) * -5px),
-      calc(var(--rivalry-stack) * -9px)
+      calc(-100% - 0.4rem + var(--rivalry-stack) * -9px)
     );
     animation: rivalry-pop 0.35s ease both;
   }
@@ -372,7 +373,7 @@
       opacity: 0;
       transform: translate(
           calc(var(--rivalry-stack) * -5px),
-          calc(var(--rivalry-stack) * -9px + 8px)
+          calc(-100% - 0.4rem + var(--rivalry-stack) * -9px + 8px)
         )
         scale(0.96);
     }
@@ -380,7 +381,7 @@
       opacity: 1;
       transform: translate(
           calc(var(--rivalry-stack) * -5px),
-          calc(var(--rivalry-stack) * -9px)
+          calc(-100% - 0.4rem + var(--rivalry-stack) * -9px)
         )
         scale(1);
     }
