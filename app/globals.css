@@ -245,6 +245,156 @@
   .rank.bronze { @apply bg-[#d99878] text-white; }
   .rank.plain { @apply bg-white/10 text-white/60; }
 
+  .rivalry-status {
+    color: #76e1d3;
+    transition: color 0.25s ease, letter-spacing 0.25s ease;
+  }
+  .rivalry-status.is-hot {
+    color: #f4c55e;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  /* Fixed footprint: bubbles float above each speaker’s name. */
+  .rivalry-board {
+    position: relative;
+    margin-top: 0.5rem;
+  }
+
+  .rivalry-row {
+    position: relative;
+    transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .rivalry-name {
+    position: relative;
+  }
+
+  .rivalry-chat {
+    position: absolute;
+    left: 2.1rem; /* align under/over the name, after the rank badge */
+    bottom: calc(100% + 0.35rem);
+    z-index: 6;
+    width: max-content;
+    max-width: min(240px, 70vw);
+    height: 0;
+    pointer-events: none;
+  }
+
+  .rivalry-bubble {
+    --rivalry-stack: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+    width: max-content;
+    max-width: 240px;
+    padding: 0.4rem 0.65rem 0.5rem;
+    border-radius: 0.85rem;
+    box-shadow: 0 10px 28px rgba(16, 40, 50, 0.35);
+    backdrop-filter: blur(8px);
+    /* Newer bubbles stack on top of older ones for this player. */
+    transform: translate(
+      calc(var(--rivalry-stack) * -5px),
+      calc(var(--rivalry-stack) * -9px)
+    );
+    animation: rivalry-pop 0.35s ease both;
+  }
+  .rivalry-bubble.is-leader {
+    background: rgba(247, 111, 95, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .rivalry-bubble.is-leader .rivalry-bubble-from,
+  .rivalry-bubble.is-leader .rivalry-bubble-text {
+    color: #fff;
+  }
+  .rivalry-bubble.is-rival {
+    background: rgba(248, 246, 240, 0.96);
+    border: 1px solid rgba(16, 40, 50, 0.08);
+  }
+  .rivalry-bubble.is-rival .rivalry-bubble-from {
+    color: rgba(16, 40, 50, 0.45);
+  }
+  .rivalry-bubble.is-rival .rivalry-bubble-text {
+    color: #102832;
+  }
+  .rivalry-bubble-from {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .rivalry-bubble-text {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  /* Tail points down at this player’s name. */
+  .rivalry-bubble::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+  .rivalry-bubble.is-leader::after {
+    background: rgba(247, 111, 95, 0.92);
+  }
+  .rivalry-bubble.is-rival::after {
+    background: rgba(248, 246, 240, 0.96);
+  }
+  .rivalry-row.is-claiming {
+    background: rgba(244, 197, 94, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(244, 197, 94, 0.45);
+    transform: scale(1.015);
+  }
+  .rivalry-crown-tag {
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: #f4c55e;
+    color: #102832;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+  }
+
+  @keyframes rivalry-pop {
+    from {
+      opacity: 0;
+      transform: translate(
+          calc(var(--rivalry-stack) * -5px),
+          calc(var(--rivalry-stack) * -9px + 8px)
+        )
+        scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(
+          calc(var(--rivalry-stack) * -5px),
+          calc(var(--rivalry-stack) * -9px)
+        )
+        scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rivalry-bubble {
+      animation: none;
+    }
+    .rivalry-row.is-claiming {
+      transform: none;
+    }
+  }
+
   .demand-knob {
     display: flex;
     align-items: center;
@@ -441,15 +591,10 @@
   .nav-3d {
     display: flex;
     align-items: center;
-    perspective: 520px;
   }
 
   .nav-3d-stage {
     position: relative;
-  }
-
-  .nav-3d-list li {
-    perspective: 520px;
   }
 
   .nav-3d-list {
@@ -463,9 +608,7 @@
 
   .nav-3d-link {
     display: inline-block;
-    transform-origin: center top;
-    transform: rotateX(-88deg);
-    opacity: 0;
+    transform-origin: center center;
     font-size: 1.125rem;
     font-weight: 800;
     letter-spacing: -0.03em;
@@ -473,13 +616,23 @@
     transition: color 0.25s ease;
   }
 
-  .nav-3d.is-open .nav-3d-link {
-    animation: nav-fold-in 1.45s cubic-bezier(0.16, 0.84, 0.24, 1.2) forwards;
+  /* Per-letter wave (CodePen-style), staggered across the whole nav */
+  .nav-wave-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0);
   }
 
-  .nav-3d.is-open .nav-3d-list li:nth-child(1) .nav-3d-link { animation-delay: 0.05s; }
-  .nav-3d.is-open .nav-3d-list li:nth-child(2) .nav-3d-link { animation-delay: 0.38s; }
-  .nav-3d.is-open .nav-3d-list li:nth-child(3) .nav-3d-link { animation-delay: 0.71s; }
+  .nav-3d.is-open .nav-wave-char {
+    animation: nav-wave-in 0.7s ease-in-out forwards;
+    animation-delay: calc(var(--i, 0) * 0.03s);
+  }
+
+  /* Brief swell after this link’s last letter finishes waving */
+  .nav-3d.is-open .nav-3d-link {
+    animation: nav-link-swell 0.4s ease-out both;
+    animation-delay: var(--swell-delay, 1.1s);
+  }
 
   .playbook {
     perspective: 900px;
@@ -658,18 +811,33 @@
   }
 }
 
-@keyframes nav-fold-in {
+@keyframes nav-wave-in {
   0% {
     opacity: 0;
-    transform: rotateX(-88deg) translateY(-18px) scale(0.82);
+    transform: translateY(0);
   }
-  58% {
+  12% {
     opacity: 1;
-    transform: rotateX(22deg) translateY(8px) scale(1.08);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-8px);
   }
   100% {
     opacity: 1;
-    transform: rotateX(0deg) translateY(0) scale(1);
+    transform: translateY(0);
+  }
+}
+
+@keyframes nav-link-swell {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -2999,6 +3167,7 @@
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .nav-3d-link { animation: none; opacity: 1; transform: none; }
+  .nav-wave-char { animation: none !important; opacity: 1; transform: none; }
   .playbook-item.is-open,
   .playbook-item.is-open .playbook-icon { animation: none; }
   .contact-ring,

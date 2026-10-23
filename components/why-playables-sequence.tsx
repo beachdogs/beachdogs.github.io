@@ -738,14 +738,14 @@ export function WhyPlayablesSequence() {
   const [selectedMetric, setSelectedMetric] = useState<MetricId | null>(null)
   const [sequenceKey, setSequenceKey] = useState(0)
   const reducedMotion = useRef(false)
-  const wasInView = useRef(false)
+  const hasStarted = useRef(false)
 
   useEffect(() => {
     reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const node = stageRef.current
     if (!node) return
 
-    const restartSequence = () => {
+    const startSequence = () => {
       if (reducedMotion.current) {
         setSelectedMetric('Purchase')
         setStep(steps.length - 1)
@@ -761,12 +761,15 @@ export function WhyPlayablesSequence() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (wasInView.current) return
-          wasInView.current = true
-          restartSequence()
+          // Already running or previously started — resume, don't restart from step 0.
+          if (hasStarted.current) {
+            setPlaying(true)
+            return
+          }
+          hasStarted.current = true
+          startSequence()
           return
         }
-        wasInView.current = false
         setPlaying(false)
       },
       { threshold: 0.4 },

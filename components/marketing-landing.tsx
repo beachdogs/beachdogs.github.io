@@ -5,9 +5,9 @@ import { ArrowUpRight, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Flame,
 import {
   DemandKnob,
   scaleGrowthPercent,
-  scaleLeaderboardPoints,
   scalePlayersToday,
 } from '@/components/demand-knob'
+import { HeroRivalryLeaderboard } from '@/components/hero-rivalry-leaderboard'
 import { WhyPlayablesSequence } from '@/components/why-playables-sequence'
 
 const mechanics = [
@@ -51,14 +51,28 @@ const navItems = [
   { href: '#results', label: 'Results', color: '#d89a12' },
 ]
 
-const CONTACT_SCRIPT_URL = process.env.NEXT_PUBLIC_CONTACT_SCRIPT_URL ?? ''
+/** Keep in sync with `.nav-3d.is-open .nav-wave-char` timing in globals.css */
+const NAV_WAVE_DUR_S = 0.7
+const NAV_WAVE_STAGGER_S = 0.03
 
-const initialPlayers = [
-  { rank: '01', name: 'Maya R.', basePoints: 12480, medal: 'gold' },
-  { rank: '02', name: 'The Coffee Club', basePoints: 11920, medal: 'silver' },
-  { rank: '03', name: 'Jake’s Bikes', basePoints: 9840, medal: 'bronze' },
-  { rank: '04', name: 'Rosa’s Kitchen', basePoints: 8210, medal: 'plain' },
-]
+function NavWaveLabel({ text, startIndex }: { text: string; startIndex: number }) {
+  return (
+    <>
+      {Array.from(text).map((char, i) => (
+        <span
+          key={`${startIndex + i}-${char}`}
+          className="nav-wave-char"
+          style={{ ['--i' as string]: startIndex + i }}
+          aria-hidden="true"
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+}
+
+const CONTACT_SCRIPT_URL = process.env.NEXT_PUBLIC_CONTACT_SCRIPT_URL ?? ''
 
 export function MarketingLanding() {
   const [activeMechanic, setActiveMechanic] = useState(0)
@@ -153,19 +167,30 @@ export function MarketingLanding() {
         <div className={`nav-3d hidden md:block ${navOpen ? 'is-open' : ''}`}>
           <div className="nav-3d-stage">
             <ul className="nav-3d-list">
-              {navItems.map((item, index) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="nav-3d-link"
-                    style={activeNav === index ? { color: item.color } : undefined}
-                    onMouseEnter={() => setActiveNav(index)}
-                    onFocus={() => setActiveNav(index)}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {navItems.map((item, index) => {
+                const startIndex = navItems
+                  .slice(0, index)
+                  .reduce((total, prev) => total + prev.label.length, 0)
+                const lastLetterDelay =
+                  (startIndex + item.label.length - 1) * NAV_WAVE_STAGGER_S + NAV_WAVE_DUR_S
+                return (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className="nav-3d-link"
+                      aria-label={item.label}
+                      style={{
+                        ...(activeNav === index ? { color: item.color } : null),
+                        ['--swell-delay' as string]: `${lastLetterDelay}s`,
+                      }}
+                      onMouseEnter={() => setActiveNav(index)}
+                      onFocus={() => setActiveNav(index)}
+                    >
+                      <NavWaveLabel text={item.label} startIndex={startIndex} />
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
@@ -193,24 +218,33 @@ export function MarketingLanding() {
               </div>
               <span className="live-pill rounded-full bg-[#f76f5f] px-3 py-1 text-[10px] font-bold uppercase transition-shadow">Live</span>
             </div>
-            <div className="mt-5 rounded-2xl bg-[#224c56] p-5 text-white">
-              <div className="flex items-center justify-between text-xs text-white/60">
-                <span>Daily speed run</span>
-                <span className="font-mono text-[#f4c55e]">00:14:22</span>
+            <div className="relative mt-5">
+              <div className="absolute -left-8 top-[90px] z-20 hidden rotate-[-8deg] rounded-2xl border border-[#102832]/10 bg-white px-4 py-3 shadow-xl sm:block">
+                <p className="font-mono text-[10px] uppercase tracking-wider text-[#102832]/50">Players today</p>
+                <p className="players-today-count mt-1 text-2xl font-bold">
+                  {playersToday.toLocaleString()}{' '}
+                  <span className="text-sm text-[#f76f5f]">+{growthPercent}%</span>
+                </p>
               </div>
-              <div className="mt-5 flex items-center justify-center">
-                <button
-                  aria-label="Play campaign demo"
-                  onClick={() => setPlayed(!played)}
-                  className={`relative flex h-36 w-36 items-center justify-center rounded-full border-2 border-dashed border-[#76e1d3] transition-transform ${played ? 'scale-105 bg-[#f76f5f]' : 'bg-[#173842] hover:scale-105'}`}
-                >
-                  <span className="absolute inset-3 rounded-full border border-white/10" />
-                  <span className="font-display text-4xl font-bold">{played ? '42' : 'GO'}</span>
-                </button>
+              <div className="rounded-2xl bg-[#224c56] p-5 text-white">
+                <div className="flex items-center justify-between text-xs text-white/60">
+                  <span>Daily speed run</span>
+                  <span className="font-mono text-[#f4c55e]">00:14:22</span>
+                </div>
+                <div className="mt-5 flex items-center justify-center">
+                  <button
+                    aria-label="Play campaign demo"
+                    onClick={() => setPlayed(!played)}
+                    className={`relative flex h-36 w-36 items-center justify-center rounded-full border-2 border-dashed border-[#76e1d3] transition-transform ${played ? 'scale-105 bg-[#f76f5f]' : 'bg-[#173842] hover:scale-105'}`}
+                  >
+                    <span className="absolute inset-3 rounded-full border border-white/10" />
+                    <span className="font-display text-4xl font-bold">{played ? '42' : 'GO'}</span>
+                  </button>
+                </div>
+                <p className="mt-4 text-center text-xs text-white/55">
+                  {played ? 'Nice! You just earned 840 points.' : 'Tap to see how fast your customers play.'}
+                </p>
               </div>
-              <p className="mt-4 text-center text-xs text-white/55">
-                {played ? 'Nice! You just earned 840 points.' : 'Tap to see how fast your customers play.'}
-              </p>
             </div>
             <DemandKnob
               demand={demand}
@@ -218,33 +252,7 @@ export function MarketingLanding() {
               userControlled={knobUserControlled}
               onTakeControl={() => setKnobUserControlled(true)}
             />
-            <div className="mt-4 flex items-center justify-between px-1 text-xs text-white/45">
-              <span>Top players today</span>
-              <span className="text-[#76e1d3]">View all →</span>
-            </div>
-            <div className="mt-2 space-y-2">
-              {initialPlayers.slice(0, 3).map((player) => {
-                const points = scaleLeaderboardPoints(player.basePoints, demand)
-                return (
-                  <div key={player.rank} className="flex items-center justify-between rounded-xl bg-white/[0.07] px-3 py-2.5 text-sm text-white">
-                    <span className="flex items-center gap-3">
-                      <span className={`rank ${player.medal}`}>{player.rank}</span>
-                      <span>{player.name}</span>
-                    </span>
-                    <span className="font-mono text-xs text-[#f4c55e] tabular-nums">
-                      {points.toLocaleString()} pts
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-          <div className="absolute -bottom-8 -left-8 hidden rotate-[-8deg] rounded-2xl border border-[#102832]/10 bg-white px-4 py-3 shadow-xl sm:block">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-[#102832]/50">Players today</p>
-            <p className="players-today-count mt-1 text-2xl font-bold">
-              {playersToday.toLocaleString()}{' '}
-              <span className="text-sm text-[#f76f5f]">+{growthPercent}%</span>
-            </p>
+            <HeroRivalryLeaderboard demand={demand} />
           </div>
         </div>
       </section>
