@@ -413,8 +413,10 @@ function UseCases() {
       <div className="mt-16 grid gap-5 md:grid-cols-3">
         {useCases.map((item, index) => (
           <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
-            <span className="font-mono text-xs font-bold text-[#f76f5f]">{String(index + 1).padStart(2, '0')}</span>
-            <h3 className="mt-12 text-xl font-bold">{item.title}</h3>
+            <div className="flex items-baseline gap-3">
+              <span className="font-mono text-xs font-bold text-[#f76f5f]">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="text-xl font-bold">{item.title}</h3>
+            </div>
             <p className="mt-3 leading-7 text-[#102832]/65">{item.text}</p>
           </div>
         ))}
@@ -433,8 +435,10 @@ function UseCases() {
       <div className="mt-16 grid gap-5 md:grid-cols-2">
         {deliverables.map((item, index) => (
           <div key={item.title} className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
-            <span className="font-mono text-xs font-bold text-[#f76f5f]">{String(index + 1).padStart(2, '0')}</span>
-            <h3 className="mt-12 text-xl font-bold">{item.title}</h3>
+            <div className="flex items-baseline gap-3">
+              <span className="font-mono text-xs font-bold text-[#f76f5f]">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="text-xl font-bold">{item.title}</h3>
+            </div>
             <p className="mt-3 leading-7 text-[#102832]/65">{item.text}</p>
           </div>
         ))}
@@ -508,7 +512,17 @@ function Metric({ value, label, delay, active }: { value: string; label: string;
     </div>
   )
 }
-function Step({ num, title, text }: { num: string; title: string; text: string }) { return <div className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7"><span className="font-mono text-xs font-bold text-[#f76f5f]">{num}</span><h3 className="mt-12 text-xl font-bold">{title}</h3><p className="mt-3 leading-7 text-[#102832]/65">{text}</p></div> }
+function Step({ num, title, text }: { num: string; title: string; text: string }) {
+  return (
+    <div className="rounded-3xl border border-[#102832]/10 bg-white/40 p-7">
+      <div className="flex items-baseline gap-3">
+        <span className="font-mono text-xs font-bold text-[#f76f5f]">{num}</span>
+        <h3 className="text-xl font-bold">{title}</h3>
+      </div>
+      <p className="mt-3 leading-7 text-[#102832]/65">{text}</p>
+    </div>
+  )
+}
 
 const pizzaPlayUrl = 'https://beachdogs.github.io/playables/pizza-slice/'
 
@@ -568,8 +582,10 @@ function PizzaSlice() {
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {pizzaLevels.map((level) => (
               <div key={level.number} className="rounded-3xl border border-[#102832]/10 bg-white p-5">
-                <span className="font-mono text-xs font-bold text-[#f76f5f]">{level.number}</span>
-                <h3 className="mt-6 text-lg font-bold leading-tight">{level.name}</h3>
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-xs font-bold text-[#f76f5f]">{level.number}</span>
+                  <h3 className="text-lg font-bold leading-tight">{level.name}</h3>
+                </div>
                 <p className="mt-2 text-sm leading-6 text-[#102832]/65">{level.text}</p>
               </div>
             ))}

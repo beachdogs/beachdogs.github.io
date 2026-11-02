@@ -1535,10 +1535,28 @@
 }
 
 .why-step-intro {
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
-  padding-top: clamp(1.5rem, 4vw, 2.5rem);
-  padding-bottom: clamp(8rem, 26vw, 11rem);
+  gap: clamp(0.55rem, 2vw, 1rem);
+  padding-top: clamp(1rem, 3vw, 2rem);
+  /* Space used to reserve room for absolutely-positioned nodes; nodes are
+     now in-flow and shrink to fit the leftover stage height. */
+  padding-bottom: clamp(1rem, 3vw, 1.75rem);
+}
+
+.why-step-intro > :first-child {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.why-step-intro .why-title {
+  font-size: clamp(1.35rem, 3.6vw, 3rem);
+}
+
+.why-step-intro .why-examples {
+  font-size: clamp(0.85rem, 2vw, 1.35rem);
 }
 
 .why-step-intro .why-examples {
@@ -1553,14 +1571,41 @@
   animation: why-examples-choose-grow 7.8s cubic-bezier(0.16, 0.84, 0.22, 1) both;
 }
 
+.why-step-intro .why-node-diagram {
+  position: relative;
+  inset: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  align-content: end;
+  /* Shrink the choice grid as a unit when vertical space is tight */
+  container-type: size;
+}
+
 .why-step-intro .why-node-diagram.is-rising {
-  animation: why-nodes-rise 7.8s cubic-bezier(0.16, 0.84, 0.22, 1) both;
+  /* In-flow layout already sits under the CTA — don't lift into the title */
+  animation: none;
 }
 
 .why-step-intro .why-node {
+  min-height: 0;
+  padding: clamp(0.28rem, 8cqh, 0.7rem) clamp(0.2rem, 2cqw, 0.35rem);
   animation:
     why-node-pop 1.15s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.35s + var(--n) * 0.32s) both,
     why-node-sizzle-glow 2s ease-in-out calc(1.2s + var(--n) * 0.32s) 2;
+}
+
+.why-step-intro .why-node-bob {
+  gap: clamp(0.15rem, 4cqh, 0.35rem);
+}
+
+.why-step-intro .why-node-svg {
+  max-width: min(4.5rem, 42cqw, 55cqh);
+}
+
+.why-step-intro .why-node-label {
+  font-size: clamp(0.5rem, 3.5cqw, 0.72rem);
 }
 
 .why-step-intro .why-node-label {
@@ -1610,7 +1655,8 @@
     box-shadow 0.35s ease,
     border-color 0.35s ease,
     filter 0.35s ease;
-  animation: why-node-spotlight-lift 1.6s ease-in-out both;
+  /* Softer lift so the card doesn't climb into the title on short stages */
+  animation: why-node-spotlight-lift-compact 1.6s ease-in-out both;
 }
 
 .why-step-intro .why-node.is-leaving {
@@ -1698,7 +1744,8 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-2.25rem);
+    /* Smaller lift so rising cards stay clear of the title on short stages */
+    transform: translateY(-1rem);
   }
 }
 
@@ -1855,6 +1902,11 @@
     grid-template-columns: repeat(2, 1fr);
     inset: auto 8% calc(10% + 20px);
   }
+
+  .why-step-intro .why-node-diagram {
+    inset: auto;
+    gap: 0.4rem;
+  }
 }
 
 @keyframes why-node-spotlight-lift {
@@ -1869,6 +1921,21 @@
   }
   100% {
     transform: translateY(0) scale(1.04);
+  }
+}
+
+@keyframes why-node-spotlight-lift-compact {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  28% {
+    transform: translateY(-6px) scale(1.08);
+  }
+  55% {
+    transform: translateY(-6px) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) scale(1.03);
   }
 }
 
