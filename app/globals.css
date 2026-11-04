@@ -973,7 +973,7 @@
   line-height: 1.35;
 }
 
-/* Keeps “big impact.” after “a” without reflow/wrap as it grows. */
+/* Keeps “big impact.” after “a” without reflow/wrap as it grows (desktop). */
 .why-burst-anchor {
   position: relative;
   display: inline-block;
@@ -1002,6 +1002,27 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
+}
+
+/* Narrow screens: center “big impact.” on its own line so the grow can’t clip. */
+@media (max-width: 870px) {
+  .why-step-solution .why-burst-anchor {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 2.75em;
+    margin-top: 0.4rem;
+    text-align: center;
+  }
+
+  .why-step-solution .why-burst-words {
+    position: relative;
+    left: auto;
+    top: auto;
+    max-width: 100%;
+    transform-origin: center center;
+    animation-name: why-burst-grow-centered;
+  }
 }
 
 .why-burst-ring {
@@ -1058,6 +1079,21 @@
     opacity: 1;
     font-size: 2.35em;
     transform: translateX(clamp(0.35rem, 1.5vw, 1.25rem));
+    text-shadow: 0 6px 18px rgba(247, 111, 95, 0.28);
+  }
+}
+
+@keyframes why-burst-grow-centered {
+  0% {
+    opacity: 0.9;
+    font-size: 1.15em;
+    transform: none;
+    text-shadow: none;
+  }
+  100% {
+    opacity: 1;
+    font-size: clamp(1.85em, 9vw, 2.2em);
+    transform: none;
     text-shadow: 0 6px 18px rgba(247, 111, 95, 0.28);
   }
 }
@@ -1826,23 +1862,25 @@
   margin: 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 870px) {
   .why-solution-layout {
     align-items: center;
     padding-left: 0;
     padding-right: 0;
+    padding-top: clamp(4.75rem, 14%, 7rem);
+    padding-bottom: 0.5rem;
   }
 
   .why-solution-copy {
     text-align: center;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .why-solution-copy .why-title-sm {
     text-align: center;
-  }
-
-  .why-burst-words {
-    transform-origin: left top;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 
   .why-step-solution .why-node.is-carry {
@@ -3412,6 +3450,11 @@
     transform: none;
     text-shadow: none;
     font-size: 2.35em;
+  }
+  @media (max-width: 870px) {
+    .why-step-solution .why-burst-words {
+      font-size: clamp(1.85em, 9vw, 2.2em);
+    }
   }
   .why-examples {
     opacity: 1;
