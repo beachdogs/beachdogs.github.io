@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Phaser 3 - Glowing Sparkling Lantern</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.0/dist/phaser.min.js"></script>
+    <style>
+        body { margin: 0; background-color: #0b0e14; overflow: hidden; }
+        canvas { display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<script>
+class MainScene extends Phaser.Scene {
+    constructor() {
+        super({ key: 'MainScene' });
+    }
+
+    preload() {
+        // --- 1. Procedurally generate textures so no external assets are required ---
+        
+        // Background Gradient Canvas
+        const bgCanvas = this.textures.createCanvas('bg', 800, 600);
+        const bgCtx = bgCanvas.context;
+        const bgGrad = bgCtx.createRadialGradient(400, 300, 50, 400, 300, 450);
+        bgGrad.addColorStop(0, '#1a102f');
+        bgGrad.addColorStop(1, '#05030a');
+        bgCtx.fillStyle = bgGrad;
+        bgCtx.fillRect(0, 0, 800, 600);
+        bgCanvas.refresh();
+
+        // Lantern Body Texture
+        const lanternCanvas = this.textures.createCanvas('lantern', 80, 120);
+        const lCtx = lanternCanvas.context;
+        
+        // Golden Cap & Base
+        lCtx.fillStyle = '#d4af37';
+        lCtx.fillRect(15, 10, 50, 12);  // Top rim
+        lCtx.fillRect(10, 100, 60, 12); // Bottom base
+        lCtx.beginPath();               // Top roof
+        lCtx.moveTo(40, 0);
+        lCtx.lineTo(65, 10);
+        lCtx.lineTo(15, 10);
+        lCtx.closePath();
+        lCtx.fill();
+
+        // Glass Frame Outline
+        lCtx.strokeStyle = '#8b6508';
+        lCtx.lineWidth = 4;
+        lCtx.strokeRect(15, 22, 50, 78);
+
+        // Glass Inner Glow
+        const glassGrad = lCtx.createRadialGradient(40, 61, 5, 40, 61, 35);
+        glassGrad.addColorStop(0, 'rgba(255, 240, 180, 0.95)');
+        glassGrad.addColorStop(0.6, 'rgba(255, 160, 40, 0.7)');
+        glassGrad.addColorStop(1, 'rgba(200, 80, 10, 0.2)');
+        lCtx.fillStyle = glassGrad;
+        lCtx.fillRect(17, 24, 46, 74);
+        lanternCanvas.refresh();
+
+        // Particle Glow Texture (Soft Circle)
+        const sparkCanvas = this.textures.createCanvas('spark', 32, 32);
+        const sCtx = sparkCanvas.context;
+        const sparkGrad = sCtx.createRadialGradient(16, 16, 0, 16, 16, 16);
+        sparkGrad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        sparkGrad.addColorStop(0.3, 'rgba(255, 220, 130, 0.8)');
+        sparkGrad.addColorStop(1, 'rgba(255, 140, 0, 0)');
+        sCtx.fillStyle = sparkGrad;
+        sCtx.beginPath();
+        sCtx.arc(16, 16, 16, 0, Math.PI * 2);
+        sCtx.fill();
+        sparkCanvas.refresh();
+    }
+
+    create() {
+        // 2. Add Background
+        this.add.image(400, 300, 'bg');
+
+        // Container for the lantern and light elements
+        const lanternContainer = this.add.container(400, 270);
+
+        // 3. Point Light Glow (Phaser WebGL Light)
+        this.pointLight = this.add.pointlight(0, 0, 0xffaa22, 220, 0.6);
+        lanternContainer.add(this.pointLight);
+
+        // 4. Lantern Sprite
+        const lantern = this.add.image(0, 0, 'lantern');
+        lanternContainer.add(lantern);
+
+        // Add PostFX Glow to the lantern sprite (if supported by browser/WebGL)
+        if (lantern.postFX) {
+            lantern.postFX.addGlow(0xffb700, 4, 1);
+        }
+
+        // 5. Sparkling Firefly Particles
+        const sparkles = this.add.particles(0, 0, 'spark', {
+            x: 0,
+            y: 10,
+            speed: { min: 10, max: 40 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.6, end: 0 },
+            alpha: { start: 1, end: 0 },
+            lifespan: { min: 1000, max: 2500 },
+            blendMode: 'ADD',
+            frequency: 120,
+            gravityY: -15 // Slow float upwards
+        });
+        lanternContainer.add(sparkles);
+
+        // 6. Floating Motion Tweens
+        // Smooth floating motion up and down
+        this.tweens.add({
+            targets: lanternContainer,
+            y: 300,
+            duration: 2500,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1
+        });
+
+        // Subtle swaying rotation
+        this.tweens.add({
+            targets: lanternContainer,
+            angle: { from: -3, to: 3 },
+            duration: 3200,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1
+        });
+
+        // 7. Light Flicker Effect (Randomized in update step)
+        this.baseIntensity = 0.65;
+        this.baseRadius = 220;
+    }
+
+    update(time, delta) {
+        // Subtle light flicker calculation
+        const flicker = (Math.sin(time * 0.01) * 0.05) + ((Math.random() - 0.5) * 0.08);
+        this.pointLight.intensity = this.baseIntensity + flicker;
+        this.pointLight.radius = this.baseRadius + (flicker * 30);
+    }
+}
+
+const config = {
+    type: Phaser.WEBGL,
+    width: 800,
+    height: 600,
+    parent: 'phaser-example',
+    scene: MainScene
+};
+
+const game = new Phaser.Game(config);
+</script>
+
+</body>
+</html>

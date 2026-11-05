@@ -1,0 +1,334 @@
+{
+	"textures": [
+		{
+			"image": "assets.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 4096,
+				"h": 4096
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "turkey-skates",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 2880,
+						"h": 360
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 2880,
+						"h": 360
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 2880,
+						"h": 360
+					}
+				},
+				{
+					"filename": "human-female-idle",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 2080,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 2080,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 366,
+						"w": 2080,
+						"h": 192
+					}
+				},
+				{
+					"filename": "human-male-idle",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 2080,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 2080,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 562,
+						"w": 2080,
+						"h": 192
+					}
+				},
+				{
+					"filename": "fox-idle",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1920,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1920,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 758,
+						"w": 1920,
+						"h": 192
+					}
+				},
+				{
+					"filename": "turkey-idle",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1920,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1920,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 954,
+						"w": 1920,
+						"h": 192
+					}
+				},
+				{
+					"filename": "human-female-jump",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 1150,
+						"w": 1280,
+						"h": 192
+					}
+				},
+				{
+					"filename": "human-female-run",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 192
+					},
+					"frame": {
+						"x": 1286,
+						"y": 1150,
+						"w": 1280,
+						"h": 192
+					}
+				},
+				{
+					"filename": "human-male-jump",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 1346,
+						"w": 1280,
+						"h": 192
+					}
+				},
+				{
+					"filename": "human-male-run",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 192
+					},
+					"frame": {
+						"x": 1286,
+						"y": 1346,
+						"w": 1280,
+						"h": 192
+					}
+				},
+				{
+					"filename": "turkey-jump",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 192
+					},
+					"frame": {
+						"x": 2,
+						"y": 1542,
+						"w": 1280,
+						"h": 192
+					}
+				},
+				{
+					"filename": "turkey-run",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 192
+					},
+					"frame": {
+						"x": 1286,
+						"y": 1542,
+						"w": 1280,
+						"h": 192
+					}
+				},
+				{
+					"filename": "finger",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 827,
+						"h": 1002
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 827,
+						"h": 1002
+					},
+					"frame": {
+						"x": 2,
+						"y": 1738,
+						"w": 827,
+						"h": 1002
+					}
+				},
+				{
+					"filename": "human-female-hit",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 192
+					},
+					"frame": {
+						"x": 833,
+						"y": 1738,
+						"w": 960,
+						"h": 192
+					}
+				},
+				{
+					"filename": "human-male-hit",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 192
+					},
+					"frame": {
+						"x": 1797,
+						"y": 1738,
+						"w": 960,
+						"h": 192
+					}
+				},
+				{
+					"filename": "turkey-hit",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 192
+					},
+					"frame": {
+						"x": 833,
+						"y": 1934,
+						"w": 960,
+						"h": 192
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://github.com/odrick/free-tex-packer-core",
+		"version": "0.3.9"
+	}
+}

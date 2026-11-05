@@ -1,0 +1,66 @@
+{
+  "frameWidth": 160,
+  "frameHeight": 192,
+  "characters": {
+    "human-male": {
+      "idle": {
+        "frames": 13,
+        "fps": 12
+      },
+      "run": {
+        "frames": 8,
+        "fps": 12
+      },
+      "jump": {
+        "frames": 8,
+        "fps": 12
+      },
+      "hit": {
+        "frames": 6,
+        "fps": 9
+      }
+    },
+    "human-female": {
+      "idle": {
+        "frames": 13,
+        "fps": 12
+      },
+      "run": {
+        "frames": 8,
+        "fps": 12
+      },
+      "jump": {
+        "frames": 8,
+        "fps": 12
+      },
+      "hit": {
+        "frames": 6,
+        "fps": 9
+      }
+    },
+    "fox": {
+      "idle": {
+        "frames": 12,
+        "fps": 12
+      }
+    },
+    "turkey": {
+      "idle": {
+        "frames": 12,
+        "fps": 12
+      },
+      "run": {
+        "frames": 8,
+        "fps": 12
+      },
+      "jump": {
+        "frames": 8,
+        "fps": 12
+      },
+      "hit": {
+        "frames": 6,
+        "fps": 9
+      }
+    }
+  }
+}
