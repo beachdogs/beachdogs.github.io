@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Beach Dog Marketing — Logo Lockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #102832;
+        --coral: #ff765d;
+        --mark-fg: #fff9ed;
+        --font-sans: Mulish, system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        gap: 1.5rem;
+        padding: 2rem;
+        background:
+          radial-gradient(circle at 20% 20%, rgba(247, 111, 95, 0.12), transparent 40%),
+          radial-gradient(circle at 80% 10%, rgba(118, 225, 211, 0.16), transparent 35%),
+          #e8ebe6;
+        font-family: var(--font-sans);
+        color: var(--ink);
+      }
+
+      .chrome {
+        text-align: center;
+        max-width: 28rem;
+      }
+
+      .chrome h1 {
+        margin: 0 0 0.35rem;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .chrome p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: rgba(16, 40, 50, 0.62);
+        line-height: 1.45;
+      }
+
+      /* Matches site nav .logo at desktop size (globals.css) */
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 26px;
+        line-height: 0.95;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      .logo i {
+        color: var(--coral);
+        font-style: normal;
+      }
+
+      .logo-mark {
+        display: grid;
+        place-items: center;
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background: var(--coral);
+        color: var(--mark-fg);
+        transform: rotate(-13deg);
+        flex-shrink: 0;
+      }
+
+      .logo-mark svg {
+        width: 40px;
+        height: 40px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .stage {
+        padding: 2rem;
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 18px 40px rgba(16, 40, 50, 0.12);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chrome">
+      <h1>Beach Dog Marketing logo lockup</h1>
+      <p>Matches the site nav mark + wordmark. Run <code>node export-logo.mjs</code> for PNG.</p>
+    </div>
+    <div class="stage">
+      <div class="logo" id="lockup" aria-label="Beach Dog Marketing">
+        <span class="logo-mark" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M2 12q2.5 2 5 0t5 0 5 0 5 0" />
+            <path d="M2 19q2.5 2 5 0t5 0 5 0 5 0" />
+            <path d="M2 5q2.5 2 5 0t5 0 5 0 5 0" />
+          </svg>
+        </span>
+        <span>Beach Dog<br /><i>Marketing</i></span>
+      </div>
+    </div>
+  </body>
+</html>
