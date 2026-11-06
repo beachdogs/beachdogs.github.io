@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "human-female-idle",
+					"filename": "human-male-idle",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,27 +52,6 @@
 					}
 				},
 				{
-					"filename": "human-male-idle",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 2080,
-						"h": 192
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 2080,
-						"h": 192
-					},
-					"frame": {
-						"x": 2,
-						"y": 562,
-						"w": 2080,
-						"h": 192
-					}
-				},
-				{
 					"filename": "fox-idle",
 					"rotated": false,
 					"trimmed": false,
@@ -88,7 +67,7 @@
 					},
 					"frame": {
 						"x": 2,
-						"y": 758,
+						"y": 562,
 						"w": 1920,
 						"h": 192
 					}
@@ -109,50 +88,8 @@
 					},
 					"frame": {
 						"x": 2,
-						"y": 954,
+						"y": 758,
 						"w": 1920,
-						"h": 192
-					}
-				},
-				{
-					"filename": "human-female-jump",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 1280,
-						"h": 192
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 1280,
-						"h": 192
-					},
-					"frame": {
-						"x": 2,
-						"y": 1150,
-						"w": 1280,
-						"h": 192
-					}
-				},
-				{
-					"filename": "human-female-run",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 1280,
-						"h": 192
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 1280,
-						"h": 192
-					},
-					"frame": {
-						"x": 1286,
-						"y": 1150,
-						"w": 1280,
 						"h": 192
 					}
 				},
@@ -172,7 +109,7 @@
 					},
 					"frame": {
 						"x": 2,
-						"y": 1346,
+						"y": 954,
 						"w": 1280,
 						"h": 192
 					}
@@ -193,7 +130,7 @@
 					},
 					"frame": {
 						"x": 1286,
-						"y": 1346,
+						"y": 954,
 						"w": 1280,
 						"h": 192
 					}
@@ -214,7 +151,7 @@
 					},
 					"frame": {
 						"x": 2,
-						"y": 1542,
+						"y": 1150,
 						"w": 1280,
 						"h": 192
 					}
@@ -235,7 +172,7 @@
 					},
 					"frame": {
 						"x": 1286,
-						"y": 1542,
+						"y": 1150,
 						"w": 1280,
 						"h": 192
 					}
@@ -256,30 +193,9 @@
 					},
 					"frame": {
 						"x": 2,
-						"y": 1738,
+						"y": 1346,
 						"w": 827,
 						"h": 1002
-					}
-				},
-				{
-					"filename": "human-female-hit",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 960,
-						"h": 192
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 960,
-						"h": 192
-					},
-					"frame": {
-						"x": 833,
-						"y": 1738,
-						"w": 960,
-						"h": 192
 					}
 				},
 				{
@@ -297,8 +213,8 @@
 						"h": 192
 					},
 					"frame": {
-						"x": 1797,
-						"y": 1738,
+						"x": 833,
+						"y": 1346,
 						"w": 960,
 						"h": 192
 					}
@@ -318,8 +234,8 @@
 						"h": 192
 					},
 					"frame": {
-						"x": 833,
-						"y": 1934,
+						"x": 1797,
+						"y": 1346,
 						"w": 960,
 						"h": 192
 					}
