@@ -1,0 +1,462 @@
+{"frames": [
+
+{
+	"filename": "avatar/CrossRender_00",
+	"frame": {"x":1313,"y":739,"w":248,"h":350},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":200,"y":268,"w":248,"h":350},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_01",
+	"frame": {"x":1505,"y":1,"w":252,"h":349},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":199,"y":269,"w":252,"h":349},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_02",
+	"frame": {"x":1381,"y":362,"w":255,"h":349},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":198,"y":269,"w":255,"h":349},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_03",
+	"frame": {"x":1759,"y":1,"w":252,"h":349},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":198,"y":269,"w":252,"h":349},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_04",
+	"frame": {"x":1256,"y":1,"w":247,"h":359},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":197,"y":269,"w":247,"h":359},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_05",
+	"frame": {"x":1177,"y":1515,"w":233,"h":366},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":196,"y":269,"w":233,"h":366},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_06",
+	"frame": {"x":1180,"y":376,"w":199,"h":361},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":196,"y":269,"w":199,"h":361},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_07",
+	"frame": {"x":201,"y":1536,"w":152,"h":348},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":196,"y":270,"w":152,"h":348},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_08",
+	"frame": {"x":1412,"y":1481,"w":142,"h":348},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":195,"y":270,"w":142,"h":348},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_09",
+	"frame": {"x":1450,"y":1091,"w":142,"h":348},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":195,"y":270,"w":142,"h":348},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_10",
+	"frame": {"x":1563,"y":713,"w":142,"h":348},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":195,"y":270,"w":142,"h":348},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_11",
+	"frame": {"x":1638,"y":352,"w":167,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":170,"y":271,"w":167,"h":347},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_12",
+	"frame": {"x":665,"y":1329,"w":200,"h":394},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":137,"y":225,"w":200,"h":394},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_13",
+	"frame": {"x":334,"y":959,"w":206,"h":464},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":131,"y":155,"w":206,"h":464},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_14",
+	"frame": {"x":1,"y":1118,"w":198,"h":498},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":140,"y":121,"w":198,"h":498},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_15",
+	"frame": {"x":151,"y":1,"w":178,"h":485},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":160,"y":134,"w":178,"h":485},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_16",
+	"frame": {"x":517,"y":1425,"w":146,"h":449},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":170,"w":146,"h":449},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_17",
+	"frame": {"x":526,"y":1,"w":145,"h":424},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":195,"w":145,"h":424},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_18",
+	"frame": {"x":673,"y":1,"w":145,"h":402},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":217,"w":145,"h":402},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_19",
+	"frame": {"x":722,"y":405,"w":144,"h":382},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":237,"w":144,"h":382},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_20",
+	"frame": {"x":1031,"y":1515,"w":144,"h":367},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":252,"w":144,"h":367},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_21",
+	"frame": {"x":1110,"y":1,"w":144,"h":373},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":246,"w":144,"h":373},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_22",
+	"frame": {"x":689,"y":838,"w":144,"h":389},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":230,"w":144,"h":389},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_23",
+	"frame": {"x":542,"y":911,"w":145,"h":416},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":203,"w":145,"h":416},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_24",
+	"frame": {"x":441,"y":469,"w":145,"h":440},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":179,"w":145,"h":440},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_25",
+	"frame": {"x":355,"y":1425,"w":160,"h":458},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":178,"y":161,"w":160,"h":458},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_26",
+	"frame": {"x":270,"y":488,"w":169,"h":469},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":168,"y":150,"w":169,"h":469},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_27",
+	"frame": {"x":331,"y":1,"w":193,"h":466},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":144,"y":153,"w":193,"h":466},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_28",
+	"frame": {"x":1807,"y":352,"w":195,"h":346},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":141,"y":273,"w":195,"h":346},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_29",
+	"frame": {"x":1868,"y":1397,"w":144,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":272,"w":144,"h":347},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_30",
+	"frame": {"x":1716,"y":1397,"w":150,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":272,"w":150,"h":347},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_31",
+	"frame": {"x":1205,"y":1127,"w":243,"h":352},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":273,"w":243,"h":352},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_32",
+	"frame": {"x":1707,"y":701,"w":266,"h":346},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":191,"y":272,"w":266,"h":346},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_33",
+	"frame": {"x":1707,"y":1049,"w":236,"h":346},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":191,"y":271,"w":236,"h":346},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_34",
+	"frame": {"x":1556,"y":1441,"w":158,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":269,"w":158,"h":347},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_35",
+	"frame": {"x":588,"y":427,"w":132,"h":409},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":193,"y":206,"w":132,"h":409},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_36",
+	"frame": {"x":140,"y":564,"w":128,"h":498},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":191,"y":116,"w":128,"h":498},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_37",
+	"frame": {"x":1,"y":1,"w":148,"h":561},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":170,"y":52,"w":148,"h":561},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_38",
+	"frame": {"x":1,"y":564,"w":137,"h":552},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":180,"y":60,"w":137,"h":552},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_39",
+	"frame": {"x":201,"y":1064,"w":131,"h":470},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":185,"y":142,"w":131,"h":470},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_40",
+	"frame": {"x":820,"y":1,"w":132,"h":382},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":229,"w":132,"h":382},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_41",
+	"frame": {"x":835,"y":789,"w":132,"h":379},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":232,"w":132,"h":379},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_42",
+	"frame": {"x":868,"y":385,"w":139,"h":378},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":232,"w":139,"h":378},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_43",
+	"frame": {"x":954,"y":1,"w":154,"h":377},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":233,"w":154,"h":377},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_44",
+	"frame": {"x":867,"y":1170,"w":162,"h":375},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":234,"w":162,"h":375},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_45",
+	"frame": {"x":969,"y":765,"w":165,"h":374},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":235,"w":165,"h":374},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_46",
+	"frame": {"x":1009,"y":380,"w":169,"h":373},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":184,"y":236,"w":169,"h":373},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_47",
+	"frame": {"x":1031,"y":1141,"w":172,"h":372},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":185,"y":237,"w":172,"h":372},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_48",
+	"frame": {"x":1136,"y":755,"w":175,"h":370},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":185,"y":239,"w":175,"h":370},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "avatar/CrossRender_49",
+	"frame": {"x":1136,"y":755,"w":175,"h":370},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":185,"y":239,"w":175,"h":370},
+	"sourceSize": {"w":600,"h":900},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "assets2.png",
+	"format": "RGBA8888",
+	"size": {"w":2013,"h":1885},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5ad396968a9cec7e40a89173a5ebc462:9703c1f56cea18af68a7168095fa9880:09550fb4fdcdfdbbc019b92dacf78d7a$"
+}
+}

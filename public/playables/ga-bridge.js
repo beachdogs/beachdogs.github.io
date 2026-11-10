@@ -1,10 +1,10 @@
 /**
  * Playable analytics helpers:
  * 1) Mute legacy MoPub S3 impression beacons (safe to load before code.js)
- * 2) Forward genlog / log_remote to GA4 (load again after code.js)
+ * 2) Replace genlog / log_remote MoPub ad_logroot XHRs with GA4 (load again after code.js)
  *
  * Events include playable_id (ad_name) so GA4 can break down by creative,
- * e.g. chocoborunner vs bb_tinyg vs bigbl_mysin.
+ * e.g. chocoborunner vs bb_tinyg vs tg_world_golf.
  */
 ;(function () {
   var GA_MEASUREMENT_ID = 'G-40W6H7KQS2'
@@ -87,7 +87,7 @@
       } catch (err) {
         // Never block the playable if GA fails.
       }
-      return original.apply(this, arguments)
+      // Do not call original — that fired MoPub ad_logroot /log and /log_string XHRs.
     }
 
     wrapped.__bdGaWrapped = true

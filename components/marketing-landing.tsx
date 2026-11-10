@@ -616,6 +616,7 @@ const galleryPlayables = [
   { title: 'Bounzy!', href: '/playables/gg_bounzy_bt_allassets/index.html' },
   { title: 'Island King', href: '/playables/click_smash_p4/index.html' },
   { title: 'Merged!', href: '/playables/gg_merged/index.html' },
+  { title: 'WGT Golf', href: '/playables/tg_world_golf/index.html' },
 ]
 
 const gallerySlideMs = 1100
