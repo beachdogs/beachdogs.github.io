@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Renders the Beach Dog Marketing nav lockup as a transparent PNG at 4× desktop size.
+ * Renders Beach Dog Marketing logo assets as transparent PNGs at 4× desktop size:
+ *  - beach-dog-logo-mark.png          — coral waves mark only
+ *  - beach-dog-marketing-logo.png     — full nav lockup (mark + wordmark)
  *
  * Run: node export-logo.mjs
  */
@@ -39,7 +41,38 @@ const WAVES = `
   </svg>
 `
 
-const html = `<!DOCTYPE html>
+const sharedCss = `
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: rgb(${KEY.r}, ${KEY.g}, ${KEY.b});
+    overflow: hidden;
+    font-family: Mulish, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .logo-mark {
+    display: grid;
+    place-items: center;
+    width: ${MARK}px;
+    height: ${MARK}px;
+    border-radius: 50%;
+    background: #ff765d;
+    color: #fff9ed;
+    transform: rotate(-13deg);
+    flex-shrink: 0;
+  }
+  .logo-mark svg {
+    width: ${ICON}px;
+    height: ${ICON}px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+`
+
+function buildHtml(body) {
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -47,13 +80,7 @@ const html = `<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      background: rgb(${KEY.r}, ${KEY.g}, ${KEY.b});
-      overflow: hidden;
-      font-family: Mulish, system-ui, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+    ${sharedCss}
     #lockup {
       display: inline-flex;
       align-items: center;
@@ -68,33 +95,14 @@ const html = `<!DOCTYPE html>
       white-space: nowrap;
     }
     #lockup i { color: #ff765d; font-style: normal; }
-    .logo-mark {
-      display: grid;
-      place-items: center;
-      width: ${MARK}px;
-      height: ${MARK}px;
-      border-radius: 50%;
-      background: #ff765d;
-      color: #fff9ed;
-      transform: rotate(-13deg);
-      flex-shrink: 0;
-    }
-    .logo-mark svg {
-      width: ${ICON}px;
-      height: ${ICON}px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    #mark-only {
+      display: inline-block;
+      padding: ${PAD}px;
     }
   </style>
 </head>
 <body>
-  <div id="lockup">
-    <span class="logo-mark">${WAVES}</span>
-    <span>Beach Dog<br /><i>Marketing</i></span>
-  </div>
+  ${body}
   <script>
     document.fonts.ready.then(function () {
       document.documentElement.setAttribute('data-ready', '1')
@@ -102,12 +110,20 @@ const html = `<!DOCTYPE html>
   </script>
 </body>
 </html>`
+}
 
-const tmpHtml = join(__dirname, '_export-logo.html')
-const tmpShot = join(__dirname, '_export-logo-raw.png')
-const outPng = join(__dirname, 'beach-dog-marketing-logo.png')
+const lockupHtml = buildHtml(`
+  <div id="lockup">
+    <span class="logo-mark">${WAVES}</span>
+    <span>Beach Dog<br /><i>Marketing</i></span>
+  </div>
+`)
 
-writeFileSync(tmpHtml, html)
+const markHtml = buildHtml(`
+  <div id="mark-only">
+    <span class="logo-mark">${WAVES}</span>
+  </div>
+`)
 
 function capture(htmlPath, outPath, width, height) {
   const url = pathToFileURL(htmlPath).href
@@ -292,23 +308,37 @@ function trimAndKey(rgba, width, height) {
   return { width: tw, height: th, rgba: trimmed }
 }
 
-// Wide enough for wordmark + mark + padding; tall enough for rotated mark.
-const canvasW = MARK + GAP + FONT * 10 + PAD * 2
-const canvasH = MARK + PAD * 2 + Math.round(24 * SCALE)
-
-capture(tmpHtml, tmpShot, canvasW, canvasH)
-
-const shot = readFileSync(tmpShot)
-const decoded = decodePng(shot)
-const keyed = trimAndKey(decoded.rgba, decoded.width, decoded.height)
-writeFileSync(outPng, encodePng(keyed.width, keyed.height, keyed.rgba))
-
-for (const f of [tmpHtml, tmpShot]) {
-  try {
-    unlinkSync(f)
-  } catch {}
+function exportAsset({ name, html, width, height }) {
+  const tmpHtml = join(__dirname, `_export-${name}.html`)
+  const tmpShot = join(__dirname, `_export-${name}-raw.png`)
+  const outPng = join(__dirname, `${name}.png`)
+  writeFileSync(tmpHtml, html)
+  capture(tmpHtml, tmpShot, width, height)
+  const decoded = decodePng(readFileSync(tmpShot))
+  const keyed = trimAndKey(decoded.rgba, decoded.width, decoded.height)
+  writeFileSync(outPng, encodePng(keyed.width, keyed.height, keyed.rgba))
+  for (const f of [tmpHtml, tmpShot]) {
+    try {
+      unlinkSync(f)
+    } catch {}
+  }
+  const hash = createHash('sha1').update(readFileSync(outPng)).digest('hex').slice(0, 10)
+  console.log(`Wrote ${outPng} (${keyed.width}×${keyed.height}, ${hash})`)
 }
 
-// Touch hash so repeats are easy to spot in logs
-const hash = createHash('sha1').update(readFileSync(outPng)).digest('hex').slice(0, 10)
-console.log(`Wrote ${outPng} (${keyed.width}×${keyed.height}, ${hash})`)
+// Mark-only: room for the -13° rotation bbox
+const markCanvas = MARK + PAD * 2 + Math.round(40 * SCALE)
+exportAsset({
+  name: 'beach-dog-logo-mark',
+  html: markHtml,
+  width: markCanvas,
+  height: markCanvas,
+})
+
+// Full lockup: mark + wordmark
+exportAsset({
+  name: 'beach-dog-marketing-logo',
+  html: lockupHtml,
+  width: MARK + GAP + FONT * 10 + PAD * 2,
+  height: MARK + PAD * 2 + Math.round(24 * SCALE),
+})
