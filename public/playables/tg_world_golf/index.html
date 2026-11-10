@@ -12,7 +12,9 @@
   var ad_name = "tg_world_golf";
   var ad_title = "WGT Golf";
   var ad_hash = "";
-  var ad_webroot = ".";
+  // code.js sets WEB_ROOT = ad_webroot + "/" + ad_name (unlike the other playables).
+  // From /playables/tg_world_golf/, ".." + /tg_world_golf resolves to this folder.
+  var ad_webroot = "..";
   var ad_logroot = "";
   var ad_splash_image = "img/icon.jpg";
   var ad_orientation = (window.innerHeight < window.innerWidth) ? "landscape" : "portrait";
