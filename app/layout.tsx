@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={mulish.variable}>
+    <html lang="en" className={mulish.variable} data-scroll-behavior="smooth">
       <body className={`${mulish.className} antialiased`}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

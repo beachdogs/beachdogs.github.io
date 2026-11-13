@@ -49,6 +49,7 @@ const navItems = [
   { href: '#solutions', label: 'Solutions', color: '#f76f5f' },
   { href: '#how-it-works', label: 'How it works', color: '#1aa89a' },
   { href: '#results', label: 'Results', color: '#d89a12' },
+  { href: '/blog', label: 'Blog', color: '#f76f5f' },
 ]
 
 /** Keep in sync with `.nav-3d.is-open .nav-wave-char` timing in globals.css */
@@ -348,7 +349,18 @@ export function MarketingLanding() {
           </div>
         </div>
       </section>
-      <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10"><span>© 2026 Beach Dog Marketing</span><span>Rooted in Pacifica, CA. Made for local businesses with big energy.</span></footer>
+      <footer className="mx-auto flex max-w-[1240px] flex-col justify-between gap-3 px-6 py-7 text-xs text-[#102832]/55 sm:flex-row lg:px-10">
+        <div className="flex items-center gap-4">
+          <span>© 2026 Beach Dog Marketing</span>
+          <a href="/blog" className="underline underline-offset-2 hover:text-[#f76f5f]">
+            Blog &amp; Playbook
+          </a>
+          <a href="/feed.xml" className="underline underline-offset-2 hover:text-[#f76f5f]">
+            RSS
+          </a>
+        </div>
+        <span>Rooted in Pacifica, CA. Made for local businesses with big energy.</span>
+      </footer>
     </main>
   )
 }

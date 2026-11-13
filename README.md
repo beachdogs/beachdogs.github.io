@@ -14,6 +14,30 @@ Pushes to `main` build a static export and deploy it to [https://beachdogs.githu
 
 Before the first deploy, open the repository on GitHub and set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**.
 
+## Blog & Playbook
+
+The blog is fully static and driven by Markdown files in `content/blog/`.
+
+### Writing a New Post
+
+1. Create a `.md` file in `content/blog/` (e.g. `content/blog/my-new-post.md`).
+2. Add the frontmatter block at the top:
+   ```yaml
+   ---
+   title: "Your Post Title"
+   date: "2026-11-10"
+   summary: "A brief one-to-two sentence summary for the card preview."
+   tags: ["Playables", "Marketing", "Retention"]
+   author: "Beach Dog Team"
+   authorRole: "Viral Growth & Playables"
+   coverImage: "/blog/my-cover-image.svg" # Optional (place file in public/blog/)
+   ---
+   ```
+3. Write your content in Markdown below the frontmatter. Headings (`#`, `##`, `###`), lists, blockquotes, tables, bold/italic, code blocks, and images (`![alt](/path)`) are supported.
+4. Preview locally with `pnpm dev` at `http://localhost:3000/blog`.
+5. Deploy remotely by committing and pushing to `main`. GitHub Actions automatically generates the static pages and deploys them to `https://beachdogs.github.io/blog`.
+
+
 ## Getting Started
 
 First, run the development server:
